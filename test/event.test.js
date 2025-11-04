@@ -15,5 +15,5 @@ describe("Event API", () => {
         expect(res.body).toHaveProperty("id");
         expect(res.body).toHaveProperty("name");
 
-    })
-})
+    });
+});
