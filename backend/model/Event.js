@@ -28,11 +28,6 @@ const eventSchema = mongoose.Schema(
       type: [ticketTypeSchema],
       required: true,
     },
-    registrationCount: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
   },
   {
     timestamps: true,
