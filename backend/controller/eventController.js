@@ -1,4 +1,4 @@
-import Event from "../model/Event";
+import Event from "../model/Event.js";
 import mongoose from "mongoose";
 
 export const createEvent = async (req, res) => {
