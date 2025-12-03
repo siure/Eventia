@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
-const ticketTypeSchema = mongoose.Schema(
+const ticketTypeSchema = new mongoose.Schema(
   {
+    name: { type: String, required: true },
     type: {
       type: String,
       required: true,
@@ -19,11 +20,22 @@ const ticketTypeSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    availableCount: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    event_id: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
+        required: true
+    }
   },
   {
     timestamps: true,
   },
 );
 
-const ticketType = mongoose.model("ticketType", ticketTypeSchema);
-export default ticketType;
+export const TicketTypeSchema = ticketTypeSchema;
+const TicketType = mongoose.model("TicketType", ticketTypeSchema);
+export default TicketType;

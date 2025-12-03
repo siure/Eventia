@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./db/connection.js";
 import healthRoutes from "./routes/health.js";
+import registrationRoutes from './routes/registrationRoutes.js';
 
 dotenv.config();
 
@@ -18,7 +19,7 @@ if (!uri) {
 
 app.use(cors());
 app.use(express.json());
-
+app.use('/api', registrationRoutes);
 app.use("/api", healthRoutes);
 
 connectDB().then(() => {
