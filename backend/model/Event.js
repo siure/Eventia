@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { ticketTypeSchema } from './TicketType.js';
+import ticketTypeSchema from "./TicketType.js";
 
-const eventSchema = new mongoose.Schema(
+const eventSchema = mongoose.Schema(
   {
     title: {
       type: String,
@@ -27,7 +27,6 @@ const eventSchema = new mongoose.Schema(
     ticketTypes: {
       type: [ticketTypeSchema],
       required: true,
-      default: []
     },
     registrationCount: {
       type: Number,
