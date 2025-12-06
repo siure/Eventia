@@ -2,7 +2,8 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "node server.js",
