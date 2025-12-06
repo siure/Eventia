@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./db/connection.js";
-import healthRoutes from "./routes/health.js";
 import registrationRoutes from './routes/registrationRoutes.js';
 
 import healthRoutes from "./routes/health.js";
