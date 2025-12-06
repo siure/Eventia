@@ -6,6 +6,10 @@ import { connectDB } from "./db/connection.js";
 import healthRoutes from "./routes/health.js";
 import registrationRoutes from './routes/registrationRoutes.js';
 
+import healthRoutes from "./routes/health.js";
+import eventRoutes from "./routes/eventRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -22,8 +26,15 @@ app.use(express.json());
 app.use('/api', registrationRoutes);
 app.use("/api", healthRoutes);
 
+app.use("/api", healthRoutes);
+app.use("/api/events", eventRoutes);
+app.use("/api/users", userRoutes);
+
+
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
 });
+
+export { app };

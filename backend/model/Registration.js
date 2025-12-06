@@ -1,38 +1,37 @@
 import mongoose from "mongoose";
 
-const registrationSchema = new mongoose.Schema({
-  user_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+const registrationSchema = mongoose.Schema(
+  {
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    event_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
+      required: true,
+    },
+    ticketType_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "TicketType",
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["pending", "approved", "cancelled"], // pending not paid reserved for x min, approved paid & cancelled not paid in time or got refund
+      default: "pending",
+    },
   },
-  event_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Event",
-    required: true,
+  {
+    timestamps: true,
   },
-  ticketTypeIndex: {
-    type: Number,
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    required: true,
-    min: 1,
-    default: 1,
-  },
-  status: {
-    type: String,
-    enum: ["Confirmed", "Pending", "Canceled"],
-    default: "Confirmed",
-  },
-  registeredAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+);
 
-registrationSchema.index({ user_id: 1, event_id: 1 }, { unique: true });
 const Registration = mongoose.model("Registration", registrationSchema);
 
 export default Registration;
