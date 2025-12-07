@@ -4,7 +4,7 @@ import EventForm from "../../components/events/EventForm.jsx";
 export default function EditEvent() {
   const { eventId } = useParams();
 
-  // Fake data pour l'instant, même que dans EventDetails
+  // Fake data temporaire
   const events = [
     {
       id: 1,
@@ -44,7 +44,10 @@ export default function EditEvent() {
   };
 
   return (
-    <div>
+    <div className="page-section">
+
+      <h2 className="page-title">Edit event: {event.title}</h2>
+
       <EventForm
         mode="edit"
         initialEvent={event}

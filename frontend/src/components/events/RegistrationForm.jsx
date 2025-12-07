@@ -11,7 +11,7 @@ export default function RegistrationForm({ event }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Normalement ici on appellerait le backend (POST /events/:id/registrations)
+    // Normalement ici on appellerait le backend 
     // Pour l'instant : on simule et on redirige vers la page de confirmation
     const selectedTicket = event.ticketTypes.find(
       (t) => t.id === ticketTypeId
@@ -69,7 +69,10 @@ export default function RegistrationForm({ event }) {
         </label>
       </div>
 
-      <button type="submit">Register</button>
+      <button className="btn btn-primary" type="submit">
+        Register
+      </button>
+
     </form>
   );
 }

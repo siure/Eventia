@@ -7,7 +7,10 @@ export default function CreateEvent() {
   };
 
   return (
-    <div>
+    <div className="page-section">
+
+      <h2 className="page-title">Create a new event</h2>
+
       <EventForm mode="create" onSubmit={handleCreateEvent} />
     </div>
   );

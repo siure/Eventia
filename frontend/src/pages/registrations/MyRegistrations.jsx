@@ -34,68 +34,73 @@ export default function MyRegistrations() {
 
   if (registrations.length === 0) {
     return (
-      <div>
-        <h2>My Registrations</h2>
+      <div className="page-section">
+        <h2 className="page-title">My Registrations</h2>
         <p>You have no registrations yet.</p>
-        <Link to="/events">Browse events</Link>
+        <Link to="/events" className="btn btn-primary">
+          Browse events
+        </Link>
       </div>
     );
   }
 
   return (
-    <div>
-      <h2 style={{ marginBottom: "1rem" }}>My Registrations</h2>
+    <div className="page-section">
+      <h2 className="page-title">My Registrations</h2>
 
       {registrations.map((reg) => (
-        <div
-          key={reg.id}
-          style={{
-            border: "1px solid #333",
-            borderRadius: "8px",
-            padding: "1rem",
-            marginBottom: "1rem",
-            backgroundColor: "#111827",
-          }}
-        >
-          <h3>{reg.eventTitle}</h3>
+        <div key={reg.id} className="card registration-card">
+          <h3 className="registration-title">{reg.eventTitle}</h3>
 
-          <p>
-            <strong>Event date:</strong> {reg.eventDate}
-          </p>
-          <p>
-            <strong>Location:</strong> {reg.eventLocation}
-          </p>
-          <p>
-            <strong>Ticket type:</strong> {reg.ticketTypeName}
-          </p>
-          <p>
-            <strong>Quantity:</strong> {reg.quantity}
-          </p>
-          <p>
-            <strong>Registration date:</strong> {reg.registrationDate}
-          </p>
-          <p>
-            <strong>Status:</strong> {reg.status}
-          </p>
+          <div className="registration-grid">
+            <p>
+              <span className="card-label">Event date:</span> {reg.eventDate}
+            </p>
 
-          <div style={{ marginTop: "0.5rem", display: "flex", gap: "1rem" }}>
-            <Link
-              to={`/events/${reg.eventId}`}
-              style={{ color: "#3b82f6" }}
-            >
-              View event
+            <p>
+              <span className="card-label-location">Location:</span>{" "}
+              {reg.eventLocation}
+            </p>
+
+            <p>
+              <span className="card-label">Ticket type:</span>{" "}
+              {reg.ticketTypeName}
+            </p>
+
+            <p>
+              <span className="card-label-location">Quantity:</span>{" "}
+              {reg.quantity}
+            </p>
+
+            <p>
+              <span className="card-label-status">Registration date:</span>{" "}
+              {reg.registrationDate}
+            </p>
+
+            <p>
+              <span className="card-label-status">Status:</span>{" "}
+              <span
+                className={
+                  reg.status === "confirmed"
+                    ? "status-published"
+                    : "status-draft"
+                }
+              >
+                {reg.status}
+              </span>
+            </p>
+          </div>
+
+          <div className="registration-actions">
+            <Link to={`/events/${reg.eventId}`} className="btn btn-primary">
+              View
             </Link>
 
             <button
+              className="btn btn-danger"
               onClick={() => handleCancel(reg.id)}
-              style={{
-                background: "none",
-                border: "none",
-                color: "#ef4444",
-                cursor: "pointer",
-              }}
             >
-              Cancel registration
+              Cancel
             </button>
           </div>
         </div>

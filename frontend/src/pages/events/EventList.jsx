@@ -1,7 +1,7 @@
 import EventCard from "../../components/events/EventCard.jsx";
 
 export default function EventList() {
-  // Pour l'instant : fausses données (mock)
+  // Pour l'instant on a des fausses données 
   const events = [
     {
       id: 1,
@@ -30,8 +30,9 @@ export default function EventList() {
   ];
 
   return (
-    <div>
-      <h2 style={{ marginBottom: "1rem" }}>Events</h2>
+    <div className="page-section">
+
+      <h2 className="page-title">Events</h2>
 
       {/* plus tard : search bar + filtres ici */}
 

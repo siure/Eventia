@@ -4,53 +4,71 @@ export default function RegistrationConfirmation() {
   const location = useLocation();
   const data = location.state;
 
+  // Cas où on arrive ici sans données
   if (!data) {
-    // Si quelqu'un arrive ici sans passer par le formulaire
     return (
       <div>
-        <h2>Registration Confirmation</h2>
+        <h2 className="page-title">Registration Confirmation</h2>
         <p>No registration data found.</p>
-        <Link to="/events">Back to events</Link>
+        <Link to="/events" className="btn btn-primary">
+          Back to events
+        </Link>
       </div>
     );
   }
 
   return (
     <div>
-      <h2>Registration Confirmed ✅</h2>
+      <h2 className="page-title">Registration Successful</h2>
+      <p className="page-subtitle">
+        Your registration has been recorded (fake for now).
+      </p>
 
-      <p>Your registration has been recorded (fake for now).</p>
+      {/* Bloc d’info */}
+      <div className="success-card">
+        <h3 className="success-title">Registration Details</h3>
 
-      <div
-        style={{
-          border: "1px solid #333",
-          borderRadius: "8px",
-          padding: "1rem",
-          margin: "1rem 0",
-          backgroundColor: "#111827",
-        }}
-      >
-        <h3>{data.eventTitle}</h3>
-        <p>
-          <strong>Date:</strong> {data.eventDate}
-        </p>
-        <p>
-          <strong>Location:</strong> {data.eventLocation}
-        </p>
-        <p>
-          <strong>Ticket type:</strong> {data.ticketTypeName}
-        </p>
-        <p>
-          <strong>Quantity:</strong> {data.quantity}
-        </p>
-        <p>
-          <strong>Registration ID:</strong> {data.registrationId}
-        </p>
+        <div className="success-info">
+          <p>
+            <span className="card-label">Event:</span> {data.eventTitle}
+          </p>
+          <p>
+            <span className="card-label">Date:</span> {data.eventDate}
+          </p>
+          <p>
+            <span className="card-label-location">Location:</span>{" "}
+            {data.eventLocation}
+          </p>
+          <p>
+            <span className="card-label">Ticket type:</span>{" "}
+            {data.ticketTypeName}
+          </p>
+          <p>
+            <span className="card-label-location">Quantity:</span>{" "}
+            {data.quantity}
+          </p>
+          <p>
+            <span className="card-label-status">Registration ID:</span>{" "}
+            {data.registrationId}
+          </p>
+        </div>
       </div>
 
-      <div style={{ display: "flex", gap: "1rem" }}>
-        <Link to="/events">⬅ Back to events</Link>
-        <Link to="/my-registrations">Go to My Registrations</Link>
+      {/* Boutons */}
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          marginTop: "1.5rem",
+        }}
+      >
+        <Link to="/events" className="btn btn-primary">
+          Back to Events
+        </Link>
+
+        <Link to="/my-registrations" className="btn">
+          My Registrations
+        </Link>
       </div>
     </div>
   );

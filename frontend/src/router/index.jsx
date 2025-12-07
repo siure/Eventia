@@ -30,13 +30,13 @@ function AppRoutes() {
         {/* Events */}
         <Route path="events" element={<EventList />} />
 
-        {/* Version normale → formulaire visible */}
+        {/* Version normale -> formulaire visible */}
         <Route 
           path="events/:eventId" 
           element={<EventDetails hideRegistrationForm={false} />} 
         />
 
-        {/* Version dashboard participant → formulaire caché */}
+        {/* Version dashboard participant -> formulaire caché */}
         <Route 
           path="dashboard/participant/event/:eventId" 
           element={<EventDetails hideRegistrationForm={true} />} 

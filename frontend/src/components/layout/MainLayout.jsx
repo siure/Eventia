@@ -1,32 +1,29 @@
 import { Link, Outlet } from "react-router-dom";
 
-function MainLayout() {
+export default function MainLayout() {
   return (
-    <div>
-      <header
-        style={{
-          padding: "1rem",
-          borderBottom: "1px solid #ddd",
-          marginBottom: "1rem",
-        }}
-      >
-        <h1>Eventia</h1>
-        <nav style={{ display: "flex", gap: "1rem", marginTop: "0.5rem" }}>
-          <Link to="/events">Events</Link>
-          <Link to="/dashboard/organizer">Organizer Dashboard</Link>
-          <Link to="/dashboard/participant">Participant Dashboard</Link>
-          <Link to="/my-registrations">My Registrations</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </nav>
+    <>
+      <header className="navbar">
+        <div className="navbar-inner">
+          <div className="navbar-title">EVENTIA</div>
+
+          <nav className="navbar-links">
+            <Link to="/events" className="navbar-link">Events</Link>
+            <Link to="/dashboard/organizer" className="navbar-link">Organizer Dashboard</Link>
+            <Link to="/dashboard/participant" className="navbar-link">Participant Dashboard</Link>
+            <Link to="/my-registrations" className="navbar-link">My Registrations</Link>
+            <Link to="/login" className="navbar-link">Login</Link>
+            <Link to="/register" className="navbar-link">Register</Link>
+          </nav>
+        </div>
       </header>
 
-      <main style={{ padding: "0 1rem" }}>
-        {/* Ici React va afficher la page correspondant à l’URL */}
-        <Outlet />
+      {/*centrage global */}
+      <main className="app-container">
+        <div className="page-section">
+          <Outlet />
+        </div>
       </main>
-    </div>
+    </>
   );
 }
-
-export default MainLayout;

@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
 
 export default function OrganizerDashboard() {
-  // Fake events created by the organizer
-  const myEvents = [
+  const events = [
     {
       id: 1,
       title: "Tech Meetup Paris",
       date: "2025-02-10",
       status: "published",
-      registrations: 42, // fake count
+      registrations: 42,
     },
     {
-      id: 3,
+      id: 2,
       title: "Startup Pitch Night",
       date: "2025-04-15",
       status: "draft",
@@ -19,99 +18,63 @@ export default function OrganizerDashboard() {
     },
   ];
 
+  const handleDelete = (eventId) => {
+    alert(`Delete event ${eventId} (fake for now)`);
+  };
+
   return (
     <div>
-      <h2 style={{ marginBottom: "1rem" }}>Organizer Dashboard</h2>
+      <h2 className="page-title">Organizer Dashboard</h2>
 
-      {/* Button create new */}
-      <div style={{ marginBottom: "1rem" }}>
-        <Link
-          to="/events/create"
-          style={{
-            padding: "0.5rem 1rem",
-            display: "inline-block",
-            borderRadius: "4px",
-            border: "1px solid #953bf6ff",
-            color: "#953bf6ff",
-            textDecoration: "none",
-          }}
-        >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+           marginBottom: "1.5rem",
+        }}
+      >
+        <Link to="/events/create" className="btn btn-primary">
           + Create New Event
         </Link>
       </div>
 
-      {/* Event list */}
-      {myEvents.length === 0 ? (
-        <p>You haven't created any events yet.</p>
-      ) : (
-        myEvents.map((event) => (
-          <div
-            key={event.id}
-            style={{
-              border: "1px solid #333",
-              borderRadius: "8px",
-              padding: "1rem",
-              marginBottom: "1rem",
-              backgroundColor: "#111827",
-            }}
-          >
-            <h3>{event.title}</h3>
 
-            <p>
-              <strong>Date:</strong> {event.date}
-            </p>
-            <p>
-              <strong>Status:</strong> {event.status}
-            </p>
-            <p>
-              <strong>Registrations:</strong> {event.registrations}
-            </p>
+      {events.map((event) => (
+        <div className="card" key={event.id}>
+          
+          <h3>{event.title}</h3>
+          <p>
+            <span className="card-label">Date:</span> {event.date}
+          </p>
+          <p>
+            <span className="card-label-status">Status:</span>{" "}
+            <span className={event.status === "published" ? "status-published" : "status-draft"}>
+              {event.status}
+            </span>
+          </p>
+          <p>
+            <span className="card-label-location">Registrations:</span> {event.registrations}
+          </p>
 
-            {/* Action buttons */}
-            <div style={{ marginTop: "0.5rem", display: "flex", gap: "1rem" }}>
-              <Link
-                to={`/events/${event.id}/edit`}
-                style={{ color: "#3b82f6" }}
-              >
-                Edit
-              </Link>
+          <div style={{ marginTop: "0.5rem", display: "flex", gap: "1rem" }}>
+            <Link to={`/events/${event.id}`} className="btn btn-primary">
+              View
+            </Link>
 
-              <Link
-                to={`/events/${event.id}`}
-                style={{ color: "#d413dbff" }}
-              >
-                View
-              </Link>
+            <Link to={`/events/${event.id}/edit`} className="btn btn-primary">
+              Edit
+            </Link>
 
-              <button
-                onClick={() => alert("Delete (fake for now)")}
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "#ff0040ff",
-                  cursor: "pointer",
-                }}
-              >
-                Delete
-              </button>
-
-              <button
-                onClick={() =>
-                  alert("View registrations (fake for now)")
-                }
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "#f892f3ff",
-                  cursor: "pointer",
-                }}
-              >
-                View Registrations
-              </button>
-            </div>
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDelete(event.id)}
+            >
+              Delete
+            </button>
           </div>
-        ))
-      )}
+
+        </div>
+      ))}
     </div>
   );
 }

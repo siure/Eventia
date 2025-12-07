@@ -111,15 +111,16 @@ export default function EventForm({ initialEvent = null, onSubmit, mode = "creat
         </label>
       </div>
 
-      {/* 🔹 Gestion des ticket types */}
+      {/* Gestion des ticket types */}
       <TicketTypeFields
         ticketTypes={ticketTypes}
         setTicketTypes={setTicketTypes}
       />
 
-      <button type="submit" style={{ marginTop: "1rem" }}>
-        {isEdit ? "Save changes" : "Create event"}
+      <button className="btn btn-primary" type="submit">
+        {mode === "create" ? "Create Event" : "Save Changes"}
       </button>
+
     </form>
   );
 }

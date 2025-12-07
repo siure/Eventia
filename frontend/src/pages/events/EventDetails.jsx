@@ -4,6 +4,7 @@ import RegistrationForm from "../../components/events/RegistrationForm.jsx";
 export default function EventDetails({ hideRegistrationForm = false }) {
   const { eventId } = useParams();
 
+  // Fake data pour l’instant
   const events = [
     {
       id: 1,
@@ -44,38 +45,83 @@ export default function EventDetails({ hideRegistrationForm = false }) {
 
   const event = events.find((e) => e.id === Number(eventId));
 
-  if (!event) return <p>Event not found.</p>;
+  if (!event) {
+    return <p>Event not found.</p>;
+  }
 
   return (
     <div>
-      <h2 style={{ marginBottom: "1rem" }}>{event.title}</h2>
+      {/* Titre en néon */}
+      <h2 className="page-title">{event.title}</h2>
 
-      <p>{event.description}</p>
+      {/* Bloc principal avec infos + tickets */}
+      <div className="card event-details-layout">
+        {/* Colonne gauche : description + meta */}
+        <div>
+          <p style={{ marginBottom: "1rem" }}>{event.description}</p>
 
-      <p><strong>Date:</strong> {event.date}</p>
-      <p><strong>Location:</strong> {event.location}</p>
-      <p><strong>Status:</strong> {event.status}</p>
-      <p><strong>Organizer:</strong> {event.organizerName}</p>
+          <p>
+            <span className="card-label">Date:</span> {event.date}
+          </p>
+          <p>
+            <span className="card-label-location">Location:</span>{" "}
+            {event.location}
+          </p>
+          <p>
+            <span className="card-label-status">Status:</span>{" "}
+            <span
+              className={
+                event.status === "published"
+                  ? "status-published"
+                  : "status-draft"
+              }
+            >
+              {event.status}
+            </span>
+          </p>
+          <p>
+            <span className="card-label-location">Organizer:</span>{" "}
+            {event.organizerName}
+          </p>
+        </div>
 
-      <h3>Tickets</h3>
-      {event.ticketTypes.length === 0 ? (
-        <p>No ticket types defined yet.</p>
-      ) : (
-        <ul>
-          {event.ticketTypes.map((ticket) => (
-            <li key={ticket.id}>
-              {ticket.name} - {ticket.price}€ ({ticket.remaining} left)
-            </li>
-          ))}
-        </ul>
-      )}
+        {/* Colonne droite : tickets */}
+        <div>
+          <h3 className="event-details-section-title">Tickets</h3>
 
-      {/*Ici on cache le formulaire si hideRegistrationForm est true */}
+          {event.ticketTypes.length === 0 ? (
+            <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
+              No ticket types defined yet.
+            </p>
+          ) : (
+            <ul className="ticket-list">
+              {event.ticketTypes.map((ticket) => (
+                <li key={ticket.id} className="ticket-item">
+                  <div className="ticket-name">{ticket.name}</div>
+                  <div className="ticket-meta">
+                    <span className="ticket-price">{ticket.price}€</span>
+                    <span className="ticket-remaining">
+                      {ticket.remaining} left
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+
+      {/* Ligne néon */}
+      {!hideRegistrationForm && <hr className="neon-divider" />}
+
+      {/* Formulaire d’inscription dans une card */}
       {!hideRegistrationForm && (
-        <>
-          <hr style={{ margin: "1.5rem 0" }} />
+        <div className="card">
+          <h3 className="event-details-section-title">
+            Register for this event
+          </h3>
           <RegistrationForm event={event} />
-        </>
+        </div>
       )}
     </div>
   );
