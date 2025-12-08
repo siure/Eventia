@@ -468,3 +468,10 @@ a.btn-danger:hover {
   gap: 1rem;
   margin-top: 0.5rem;
 }
+
+/* === Auth pages layout === */
+.auth-card {
+  max-width: 420px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
