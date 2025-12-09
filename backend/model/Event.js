@@ -34,8 +34,8 @@ const eventSchema = mongoose.Schema(
         validator: function (v) {
           return v.length > 0;
         },
-        message: "Event must have at least 1 ticket type"
-      }
+        message: "Event must have at least 1 ticket type",
+      },
     },
   },
   {
@@ -43,7 +43,7 @@ const eventSchema = mongoose.Schema(
   },
 );
 
-eventSchema.pre("save", function (next) {
+eventSchema.pre("save", function () {
   const currentDate = new Date();
   currentDate.setMinutes(currentDate.getMinutes() + 1);
   if (currentDate >= this.date) {
@@ -57,20 +57,20 @@ eventSchema.pre("save", function (next) {
 });
 
 eventSchema.methods.isPast = function () {
-  return (new Date() >= this.date);
-}
+  return new Date() >= this.date;
+};
 
 eventSchema.methods.isFull = function () {
-  return this.ticketTypes.every(tt => tt.quantity == 0);
-}
+  return this.ticketTypes.every((tt) => tt.quantity == 0);
+};
 
 eventSchema.methods.getAvaliableForType = function (typeId) {
-  const type = this.ticketTypes.find(tt => tt.id == typeId);
+  const type = this.ticketTypes.find((tt) => tt.id == typeId);
   return type ? type.quantity : 0;
-}
+};
 eventSchema.methods.getTicketTypeById = function (typeId) {
-  return this.ticketTypes.find(tt => tt.id == typeId);
-}
+  return this.ticketTypes.find((tt) => tt.id == typeId);
+};
 
 const Event = mongoose.model("Event", eventSchema);
 export default Event;
