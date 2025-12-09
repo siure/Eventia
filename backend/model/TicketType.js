@@ -28,14 +28,13 @@ const ticketTypeSchema = mongoose.Schema(
   },
 );
 
-ticketTypeSchema.pre("validate", function (next) {
+ticketTypeSchema.pre("validate", function () {
   if (this.capacity <= 0) {
-    return next(new Error("Ticket capacity must be at least 1."));
+    throw new Error("Ticket capacity must be at least 1.");
   }
   if (this.isNew || this.isModified("capacity")) {
     this.availableTickets = this.capacity;
   }
-  next();
 });
 
 export default ticketTypeSchema;
