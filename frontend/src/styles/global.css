@@ -57,8 +57,12 @@ body {
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
-  flex-direction: column;
+  /*flex-direction: column; */
+  flex-direction: row;        /* row instead of column */
   align-items: center;
+
+  justify-content: space-between;
+  flex-wrap: wrap;           /* allow wrapping on small screens */
 }
 
 .navbar-title {
@@ -74,9 +78,35 @@ body {
   display: flex;
   gap: 1rem;
   margin-top: 0.6rem;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
+  flex-wrap: flex-start;
+  
   justify-content: center;
 }
+
+.navbar-profile {
+  display: flex;
+  align-items: center; /* vertically align with links */
+  margin-right: 8rem;
+}
+.profile-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 2rem; /* increased from 1.5rem */
+  color: var(--text-main);
+  transition: transform 0.2s;
+}
+
+.profile-btn:hover {
+  transform: scale(1.2); /* optional hover effect */
+}
+
+.navbar-profile button {
+  padding: 0.3rem 0.5rem; /* add some padding around the icon */
+  border-radius: 50%;      /* optional: make it circular */
+}
+
 
 .navbar-link {
   color: var(--text-muted);
@@ -85,6 +115,7 @@ body {
   padding-bottom: 2px;
   transition: color 0.2s;
 }
+
 
 .navbar-link:hover {
   color: var(--text-main);
@@ -475,3 +506,8 @@ a.btn-danger:hover {
   margin: 0 auto;
   margin-top: 1rem;
 }
+
+
+
+
+
