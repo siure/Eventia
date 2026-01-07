@@ -14,6 +14,7 @@ import EditEvent from "../pages/events/EditEvent.jsx";
 // Dashboard pages ME
 import OrganizerDashboard from "../pages/dashboard/OrganizerDashboard.jsx";
 import ParticipantDashboard from "../pages/dashboard/ParticipantDashboard.jsx";
+import DashboardSwitch from "../pages/dashboard/DashboardSwitch.jsx";
 
 // Registrations pages ME
 import MyRegistrations from "../pages/registrations/MyRegistrations.jsx";
@@ -24,6 +25,8 @@ function AppRoutes() {
     <Routes>
       {/* Routes avec layout commun */}
       <Route path="/" element={<MainLayout />}>
+        <Route path="dashboard-switch" element={<DashboardSwitch />} />
+
         {/* Home = EventList */}
         <Route index element={<EventList />} />
 

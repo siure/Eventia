@@ -1,0 +1,1961 @@
+
+
+--- FICHIER: src/services/events.js ---
+
+
+
+--- FICHIER: src/services/api.js ---
+
+
+
+--- FICHIER: src/services/registrations.js ---
+
+
+
+--- FICHIER: src/App.jsx ---
+
+import AppRoutes from "./router/index.jsx";
+
+function App() {
+  return <AppRoutes />;
+}
+
+export default App;
+
+
+--- FICHIER: src/auth/useAuth.js ---
+
+
+
+--- FICHIER: src/auth/ProtectedRoute.jsx ---
+
+
+
+--- FICHIER: src/auth/AuthContext.jsx ---
+
+
+
+--- FICHIER: src/index.css ---
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+
+--- FICHIER: src/styles/global.css ---
+
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Palette Néon */
+  --bg-main: #030012;
+  --bg-card: #070521;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+
+  --primary: #ec4899;
+  --primary-soft: #f472b6;
+  --secondary: #8b5cf6;
+  --accent: #22d3ee;
+
+  --danger: #fb7185;
+  --success: #22c55e;
+
+  --radius-lg: 0.9rem;
+  --radius-full: 999px;
+
+  --shadow-neon: 0 0 18px rgba(139, 92, 246, 0.4);
+  --text-gradient: linear-gradient(90deg, #ec4899, #8b5cf6);
+}
+
+/* ===== GLOBAL BODY ===== */
+body {
+  font-family: Inter, system-ui, sans-serif;
+  background: radial-gradient(circle at top, #1a1a2e 0%, #030012 50%, #000 100%);
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  width: 100%;
+  padding: 1.2rem 0;
+  background: linear-gradient(
+    120deg,
+    rgba(139, 92, 246, 0.15),
+    rgba(236, 72, 153, 0.05),
+    transparent
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  margin-bottom: 1.5rem;
+}
+
+.navbar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary-soft);
+  text-shadow: 0 0 12px rgba(236, 72, 153, 0.6);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.navbar-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.2s;
+}
+
+.navbar-link:hover {
+  color: var(--text-main);
+}
+
+.navbar-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  transition: width 0.25s ease;
+}
+
+.navbar-link:hover::after {
+  width: 100%;
+}
+
+/* ===== LAYOUT GLOBAL ===== */
+
+/* Conteneur général qui centre toutes les pages */
+.app-container {
+  max-width: 960px;      
+  margin: 0 auto;        
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Zone de contenu de chaque page */
+.page-section {
+  width: 100%;
+}
+
+/* ===== TITRES ===== */
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 2rem 0 2.5rem;
+
+  background: var(--text-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Glow */
+  text-shadow: 0 0 12px rgba(236, 72, 153, 0.6),
+               0 0 18px rgba(139, 92, 246, 0.4);
+}
+
+
+.page-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid rgba(147, 51, 234, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem;
+  margin-bottom: 1rem;
+  width: 100%; 
+  box-shadow: 0 0 8px rgba(147, 51, 234, 0.15);
+  transition: 0.25s ease;
+}
+
+.card:hover {
+  border-color: #a855f7;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+}
+
+/* ===== LABELS COULEURS ===== */
+.card-label {
+  font-weight: 600;
+  color: #ec4899;
+}
+
+.card-label-location {
+  font-weight: 600;
+  color: #8b5cf6;
+}
+
+.card-label-status {
+  font-weight: 600;
+}
+
+.status-published {
+  color: #10b981;
+}
+
+.status-draft {
+  color: #f59e0b;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-main);
+  transition: all 0.25s ease;
+  font-size: 0.95rem;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.btn-primary {
+  border-color: #ec4899;
+  color: #ec4899;
+}
+
+.btn-primary:hover {
+  background: rgba(236, 72, 153, 0.12);
+  border-color: #f472b6;
+  color: #f472b6;
+}
+
+.btn-danger {
+  border-color: #f87171;
+  color: #fca5a5;
+}
+
+.btn-danger:hover {
+  background: rgba(248, 113, 113, 0.15);
+  border-color: #fca5a5;
+}
+
+/* ===== FORM INPUTS ===== */
+.field {
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(7, 5, 33, 0.9);
+  color: var(--text-main);
+  outline: none;
+  transition: 0.2s;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.7);
+}
+
+/* Enlever les liens en dessus de "view" */
+a.btn,
+a.btn-primary,
+a.btn-danger {
+  text-decoration: none !important;
+}
+
+a.btn:hover,
+a.btn-primary:hover,
+a.btn-danger:hover {
+  text-decoration: none !important;
+}
+
+/* Labels (Organizer Dashboard) */
+.card-label {
+  font-weight: 600;
+  color: var(--primary); /* rose pour Date */
+}
+
+.card-label-status {
+  font-weight: 600;
+}
+
+.status-published {
+  color: #10b981; /* vert */
+}
+
+.status-draft {
+  color: #f59e0b; /* orange */
+}
+
+.card-label-registrations {
+  font-weight: 600;
+  color: var(--accent); /* bleu néon */
+}
+
+/* === Event cards avec illustration cyberpunk === */
+
+.event-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* fond image + dégradé */
+.event-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background:
+    linear-gradient(
+      to right,
+      rgba(3, 0, 18, 0.98) 0%,
+      rgba(3, 0, 18, 0.96) 20%,
+      rgba(3, 0, 18, 0.85) 40%,
+      rgba(3, 0, 18, 0.0) 65%
+    ),
+    url("/images/event-cyberpunk.jpg") no-repeat left center;  
+
+  background-size: auto 130%, cover;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+
+.event-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* === Event details layout === */
+
+.event-details-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .event-details-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.event-details-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--primary-soft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Tickets list */
+
+.ticket-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ticket-item {
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(236, 72, 153, 0.18);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.ticket-name {
+  font-weight: 600;
+  color: var(--primary-soft);
+}
+
+.ticket-meta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.ticket-price {
+  color: var(--accent);
+}
+
+.ticket-remaining {
+  color: var(--text-muted);
+}
+
+/* Ligne néon */
+
+.neon-divider {
+  margin: 2rem 0 1.5rem;
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--primary),
+    var(--secondary),
+    transparent
+  );
+  opacity: 0.9;
+}
+
+/* === Success Card === */
+
+.success-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(16, 185, 129, 0.35); 
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.success-card:hover {
+  border-color: #34d399;
+  box-shadow: 0 0 18px rgba(52, 211, 153, 0.45);
+}
+
+.success-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #34d399;
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+}
+
+.success-info p {
+  margin: 0.35rem 0;
+  font-size: 0.95rem;
+}
+
+/* === My Registrations styling === */
+
+.registration-card {
+  padding: 1.5rem;
+}
+
+.registration-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-soft);
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+}
+
+.registration-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.registration-grid p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.registration-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* === Auth pages layout === */
+.auth-card {
+  max-width: 420px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.profile-button {
+  position: fixed;
+  top: 12px;
+  right: 24px;
+  padding: 0.45rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(236, 72, 153, 0.7);
+  background: rgba(3, 0, 18, 0.85);
+  color: #f9fafb;
+  font-size: 0.85rem;
+  cursor: pointer;
+  z-index: 50;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+  transition: all 0.2s ease;
+}
+
+.profile-button:hover {
+  border-color: #f472b6;
+  box-shadow: 0 0 16px rgba(244, 114, 182, 0.8);
+  transform: translateY(-1px);
+}
+
+/* === Bouton coupé en deux (Organizer / Participant) === */
+
+.role-switch {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem auto;
+  width: 360px;
+  background: rgba(20, 0, 35, 0.6);
+  border-radius: 999px;
+  border: 1px solid rgba(236, 72, 153, 0.4);
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+}
+
+.role-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: #c084fc;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.role-btn:hover {
+  background: rgba(236, 72, 153, 0.15);
+}
+
+.role-btn.active {
+  background: rgba(236, 72, 153, 0.35);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: inset 0 0 20px rgba(236, 72, 153, 0.5);
+}
+
+
+--- FICHIER: src/main.jsx ---
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App.jsx";
+import "./index.css";
+import "./styles/global.css";
+
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
+
+
+--- FICHIER: src/components/layout/MainLayout.jsx ---
+
+import { Link, Outlet } from "react-router-dom";
+
+export default function MainLayout() {
+  return (
+    <>
+      <header className="navbar">
+        <div className="navbar-inner">
+          {/* EVENTIA renvoie vers /events */}
+          <Link to="/events" className="navbar-title">
+            EVENTIA
+          </Link>
+
+          <nav className="navbar-links">
+            {/* Tu peux garder ou enlever ces liens plus tard si tu veux */}
+            <Link to="/dashboard/organizer" className="navbar-link">
+              Organizer Dashboard
+            </Link>
+            <Link to="/dashboard/participant" className="navbar-link">
+              Participant Dashboard
+            </Link>
+            <Link to="/my-registrations" className="navbar-link">
+              My Registrations
+            </Link>
+            <Link to="/login" className="navbar-link">Login</Link>
+            <Link to="/register" className="navbar-link">Register</Link>
+          </nav>
+        </div>
+      </header>
+
+      {/* 🔹 Bouton "Profile" flottant en haut à droite */}
+      <Link to="/dashboard-switch" className="profile-button">
+        Profile
+      </Link>
+
+      <main className="app-container">
+        <div className="page-section">
+          <Outlet />
+        </div>
+      </main>
+    </>
+  );
+}
+
+
+--- FICHIER: src/components/ui/Loader.jsx ---
+
+
+
+--- FICHIER: src/components/events/EventCard.jsx ---
+
+import { Link } from "react-router-dom";
+
+export default function EventCard({ event }) {
+  return (
+    <div className="card event-card">
+      <div className="event-card-content">
+        <h3 style={{ marginBottom: "0.4rem" }}>{event.title}</h3>
+
+        <p style={{ marginBottom: "0.6rem", fontSize: "0.9rem" }}>
+          {event.description}
+        </p>
+
+        <p style={{ fontSize: "0.9rem" }}>
+          <span className="card-label">Date:</span> {event.date}
+        </p>
+
+        <p style={{ fontSize: "0.9rem" }}>
+          <span className="card-label-location">Location:</span>{" "}
+          {event.location}
+        </p>
+
+        <div style={{ marginTop: "0.75rem" }}>
+          <Link to={`/events/${event.id}`} className="btn btn-primary">
+            View details
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+--- FICHIER: src/components/events/TicketTypeFields.jsx ---
+
+export default function TicketTypeFields({ ticketTypes, setTicketTypes }) {
+  const handleChange = (index, field, value) => {
+    const updated = ticketTypes.map((ticket, i) =>
+      i === index ? { ...ticket, [field]: value } : ticket
+    );
+    setTicketTypes(updated);
+  };
+
+  const handleAdd = () => {
+    const newTicket = {
+      id: Date.now().toString(), // fake id
+      name: "",
+      price: "",
+      capacity: "",
+    };
+    setTicketTypes([...ticketTypes, newTicket]);
+  };
+
+  const handleRemove = (index) => {
+    const updated = ticketTypes.filter((_, i) => i !== index);
+    setTicketTypes(updated);
+  };
+
+  return (
+    <div style={{ marginTop: "1rem" }}>
+      <h3>Ticket types</h3>
+
+      {ticketTypes.length === 0 && (
+        <p style={{ fontSize: "0.9rem" }}>No ticket types yet.</p>
+      )}
+
+      {ticketTypes.map((ticket, index) => (
+        <div
+          key={ticket.id || index}
+          style={{
+            border: "1px solid #333",
+            borderRadius: "6px",
+            padding: "0.75rem",
+            marginBottom: "0.5rem",
+            backgroundColor: "#020617",
+          }}
+        >
+          <div style={{ marginBottom: "0.4rem" }}>
+            <label>
+              Name{" "}
+              <input
+                type="text"
+                value={ticket.name}
+                onChange={(e) =>
+                  handleChange(index, "name", e.target.value)
+                }
+                style={{ marginLeft: "0.5rem" }}
+              />
+            </label>
+          </div>
+
+          <div style={{ marginBottom: "0.4rem" }}>
+            <label>
+              Price (€){" "}
+              <input
+                type="number"
+                min="0"
+                value={ticket.price}
+                onChange={(e) =>
+                  handleChange(index, "price", e.target.value)
+                }
+                style={{ marginLeft: "0.5rem", width: "80px" }}
+              />
+            </label>
+          </div>
+
+          <div style={{ marginBottom: "0.4rem" }}>
+            <label>
+              Capacity{" "}
+              <input
+                type="number"
+                min="0"
+                value={ticket.capacity}
+                onChange={(e) =>
+                  handleChange(index, "capacity", e.target.value)
+                }
+                style={{ marginLeft: "0.5rem", width: "80px" }}
+              />
+            </label>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => handleRemove(index)}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#ef4444",
+              cursor: "pointer",
+              fontSize: "0.85rem",
+              padding: 0,
+            }}
+          >
+            Remove ticket type
+          </button>
+        </div>
+      ))}
+
+      <button
+        type="button"
+        onClick={handleAdd}
+        style={{
+          marginTop: "0.5rem",
+          padding: "0.4rem 0.8rem",
+          borderRadius: "4px",
+          border: "1px solid #3b82f6",
+          color: "#3b82f6",
+          background: "transparent",
+          cursor: "pointer",
+          fontSize: "0.9rem",
+        }}
+      >
+        + Add ticket type
+      </button>
+    </div>
+  );
+}
+
+
+--- FICHIER: src/components/events/EventForm.jsx ---
+
+import { useState } from "react";
+import TicketTypeFields from "./TicketTypeFields.jsx";
+
+export default function EventForm({ initialEvent = null, onSubmit, mode = "create" }) {
+  const [title, setTitle] = useState(initialEvent?.title || "");
+  const [description, setDescription] = useState(initialEvent?.description || "");
+  const [date, setDate] = useState(initialEvent?.date || "");
+  const [location, setLocation] = useState(initialEvent?.location || "");
+  const [status, setStatus] = useState(initialEvent?.status || "draft");
+
+  // ticketTypes : si initialEvent en a, on les reprend, sinon un tableau vide
+  const [ticketTypes, setTicketTypes] = useState(
+    initialEvent?.ticketTypes && initialEvent.ticketTypes.length > 0
+      ? initialEvent.ticketTypes
+      : []
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Nettoyer un peu les ticketTypes : ne garder que ceux avec un nom
+    const cleanedTicketTypes = ticketTypes
+      .filter((t) => t.name && t.name.trim() !== "")
+      .map((t) => ({
+        ...t,
+        price: Number(t.price) || 0,
+        capacity: Number(t.capacity) || 0,
+      }));
+
+    const eventData = {
+      title,
+      description,
+      date,
+      location,
+      status,
+      ticketTypes: cleanedTicketTypes,
+    };
+
+    onSubmit(eventData);
+  };
+
+  const isEdit = mode === "edit";
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2 style={{ marginBottom: "1rem" }}>
+        {isEdit ? "Edit Event" : "Create Event"}
+      </h2>
+
+      <div style={{ marginBottom: "0.5rem" }}>
+        <label>
+          Title <br />
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            style={{ width: "100%" }}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "0.5rem" }}>
+        <label>
+          Description <br />
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            rows={4}
+            style={{ width: "100%" }}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "0.5rem" }}>
+        <label>
+          Date <br />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "0.5rem" }}>
+        <label>
+          Location <br />
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+            style={{ width: "100%" }}
+          />
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "0.5rem" }}>
+        <label>
+          Status <br />
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+        </label>
+      </div>
+
+      {/* Gestion des ticket types */}
+      <TicketTypeFields
+        ticketTypes={ticketTypes}
+        setTicketTypes={setTicketTypes}
+      />
+
+      <button className="btn btn-primary" type="submit">
+        {mode === "create" ? "Create Event" : "Save Changes"}
+      </button>
+
+    </form>
+  );
+}
+
+
+--- FICHIER: src/components/events/RegistrationForm.jsx ---
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function RegistrationForm({ event }) {
+  const [ticketTypeId, setTicketTypeId] = useState(
+    event.ticketTypes[0]?.id || ""
+  );
+  const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Normalement ici on appellerait le backend 
+    // Pour l'instant : on simule et on redirige vers la page de confirmation
+    const selectedTicket = event.ticketTypes.find(
+      (t) => t.id === ticketTypeId
+    );
+
+    const fakeRegistrationId = "fake-" + Date.now();
+
+    navigate(`/registrations/confirmation/${fakeRegistrationId}`, {
+      state: {
+        registrationId: fakeRegistrationId,
+        eventId: event.id,
+        eventTitle: event.title,
+        eventDate: event.date,
+        eventLocation: event.location,
+        ticketTypeName: selectedTicket?.name || "",
+        quantity,
+      },
+    });
+  };
+
+  if (event.ticketTypes.length === 0) {
+    return <p>No tickets available for registration.</p>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <h3>Register for this event</h3>
+
+      <div style={{ marginBottom: "0.5rem" }}>
+        <label>
+          Ticket type:{" "}
+          <select
+            value={ticketTypeId}
+            onChange={(e) => setTicketTypeId(e.target.value)}
+          >
+            {event.ticketTypes.map((ticket) => (
+              <option key={ticket.id} value={ticket.id}>
+                {ticket.name} - {ticket.price}€
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <div style={{ marginBottom: "0.5rem" }}>
+        <label>
+          Quantity:{" "}
+          <input
+            type="number"
+            min="1"
+            max="10"
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+          />
+        </label>
+      </div>
+
+      <button className="btn btn-primary" type="submit">
+        Register
+      </button>
+
+    </form>
+  );
+}
+
+
+--- FICHIER: src/pages/auth/Login.jsx ---
+
+import { Link } from "react-router-dom";
+
+export default function Login() {
+  return (
+    <div className="page-section">
+      <h2 className="page-title">Login</h2>
+
+      <div className="card auth-card">
+        <form>
+          <div className="field">
+            <label className="field-label">Email</label>
+            <input
+              type="email"
+              className="input"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div className="field">
+            <label className="field-label">Password</label>
+            <input
+              type="password"
+              className="input"
+              placeholder="********"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: "100%", marginTop: "0.5rem" }}
+          >
+            Login
+          </button>
+        </form>
+
+        <p style={{ marginTop: "0.75rem", fontSize: "0.9rem" }}>
+          Don&apos;t have an account?{" "}
+          <Link to="/register" className="navbar-link">
+            Register
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/auth/Register.jsx ---
+
+import { Link } from "react-router-dom";
+
+export default function Register() {
+  return (
+    <div className="page-section">
+      <h2 className="page-title">Register</h2>
+
+      <div className="card auth-card">
+        <form>
+          <div className="field">
+            <label className="field-label">Name</label>
+            <input
+              type="text"
+              className="input"
+              placeholder="Your name"
+            />
+          </div>
+
+          <div className="field">
+            <label className="field-label">Email</label>
+            <input
+              type="email"
+              className="input"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div className="field">
+            <label className="field-label">Password</label>
+            <input
+              type="password"
+              className="input"
+              placeholder="********"
+            />
+          </div>
+
+          <div className="field">
+            <label className="field-label">Confirm password</label>
+            <input
+              type="password"
+              className="input"
+              placeholder="********"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: "100%", marginTop: "0.5rem" }}
+          >
+            Register
+          </button>
+        </form>
+
+        <p style={{ marginTop: "0.75rem", fontSize: "0.9rem" }}>
+          Already have an account?{" "}
+          <Link to="/login" className="navbar-link">
+            Login
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/dashboard/ParticipantDashboard.jsx ---
+
+import { Link } from "react-router-dom";
+
+export default function ParticipantDashboard() {
+  const registrations = [
+    {
+      id: "r1",
+      eventId: 1,
+      eventTitle: "Tech Meetup Paris",
+      eventDate: "2025-02-10",
+      eventLocation: "Paris, France",
+      ticketTypeName: "Standard",
+      quantity: 2,
+      registrationDate: "2025-01-10",
+      status: "confirmed",
+    },
+    {
+      id: "r2",
+      eventId: 2,
+      eventTitle: "Online React Workshop",
+      eventDate: "2025-03-01",
+      eventLocation: "Online",
+      ticketTypeName: "Regular",
+      quantity: 1,
+      registrationDate: "2025-02-01",
+      status: "confirmed",
+    },
+  ];
+
+  const totalRegistrations = registrations.length;
+  const totalTickets = registrations.reduce(
+    (sum, reg) => sum + reg.quantity,
+    0
+  );
+
+  const upcoming = registrations.slice(0, 3);
+
+  return (
+    <div>
+      <h2 className="page-title">Participant Dashboard</h2>
+
+      {/* --- STAT CARDS --- */}
+      <div className="card">
+        <p className="card-label">Total registrations</p>
+        <p style={{ fontSize: "1.4rem", fontWeight: "bold" }}>
+          {totalRegistrations}
+        </p>
+      </div>
+
+      <div className="card">
+        <p className="card-label-location">Total tickets</p>
+        <p style={{ fontSize: "1.4rem", fontWeight: "bold" }}>
+          {totalTickets}
+        </p>
+      </div>
+
+      {/* --- UPCOMING EVENTS HEADER --- */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginTop: "1.5rem",
+          marginBottom: "0.5rem",
+        }}
+      >
+        <h3 style={{ margin: 0 }}>Upcoming events</h3>
+
+        <Link to="/my-registrations" className="btn btn-primary">
+          View all registrations
+        </Link>
+      </div>
+
+      {/* --- UPCOMING EVENTS LIST --- */}
+      {upcoming.map((reg) => (
+        <div className="card" key={reg.id}>
+          <h4>{reg.eventTitle}</h4>
+
+          {/* Ligne 1 : Date */}
+          <p>
+            <span className="card-label">Date:</span> {reg.eventDate}
+          </p>
+
+          {/* Ligne 2 : Ticket */}
+          <p>
+            <span className="card-label">Ticket:</span> {reg.ticketTypeName}
+          </p>
+
+          {/* Ligne 3 : Location */}
+          <p>
+            <span className="card-label-location">Location:</span>{" "}
+            {reg.eventLocation}
+          </p>
+
+          {/* Ligne 4 : Quantity */}
+          <p>
+            <span className="card-label-location">Quantity:</span>{" "}
+            {reg.quantity}
+          </p>
+
+          {/* bouton aligné à droite */}
+          <div
+            style={{
+              marginTop: "0.75rem",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Link to={`/events/${reg.eventId}`} className="btn btn-primary">
+              View event
+            </Link>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/dashboard/OrganizerDashboard.jsx ---
+
+import { Link } from "react-router-dom";
+
+export default function OrganizerDashboard() {
+  const events = [
+    {
+      id: 1,
+      title: "Tech Meetup Paris",
+      date: "2025-02-10",
+      status: "published",
+      registrations: 42,
+    },
+    {
+      id: 2,
+      title: "Startup Pitch Night",
+      date: "2025-04-15",
+      status: "draft",
+      registrations: 0,
+    },
+  ];
+
+  const handleDelete = (eventId) => {
+    alert(`Delete event ${eventId} (fake for now)`);
+  };
+
+  return (
+    <div>
+      <h2 className="page-title">Organizer Dashboard</h2>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+           marginBottom: "1.5rem",
+        }}
+      >
+        <Link to="/events/create" className="btn btn-primary">
+          + Create New Event
+        </Link>
+      </div>
+
+
+      {events.map((event) => (
+        <div className="card" key={event.id}>
+          
+          <h3>{event.title}</h3>
+          <p>
+            <span className="card-label">Date:</span> {event.date}
+          </p>
+          <p>
+            <span className="card-label-status">Status:</span>{" "}
+            <span className={event.status === "published" ? "status-published" : "status-draft"}>
+              {event.status}
+            </span>
+          </p>
+          <p>
+            <span className="card-label-location">Registrations:</span> {event.registrations}
+          </p>
+
+          <div style={{ marginTop: "0.5rem", display: "flex", gap: "1rem" }}>
+            <Link to={`/events/${event.id}`} className="btn btn-primary">
+              View
+            </Link>
+
+            <Link to={`/events/${event.id}/edit`} className="btn btn-primary">
+              Edit
+            </Link>
+
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDelete(event.id)}
+            >
+              Delete
+            </button>
+          </div>
+
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/dashboard/DashboardSwitch.jsx ---
+
+import { useState } from "react";
+import OrganizerDashboard from "./OrganizerDashboard.jsx";
+import ParticipantDashboard from "./ParticipantDashboard.jsx";
+
+export default function DashboardSwitch() {
+  const [active, setActive] = useState("organizer"); // "organizer" ou "participant"
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <h2 className="page-title">Choose your view</h2>
+
+      {/* Bouton coupé en deux */}
+      <div className="role-switch">
+        <button
+          className={`role-btn ${active === "organizer" ? "active" : ""}`}
+          onClick={() => setActive("organizer")}
+        >
+          Organizer
+        </button>
+
+        <button
+          className={`role-btn ${active === "participant" ? "active" : ""}`}
+          onClick={() => setActive("participant")}
+        >
+          Participant
+        </button>
+      </div>
+
+      {/* Zone de contenu : on affiche un des deux dashboards */}
+      <div style={{ marginTop: "2rem" }}>
+        {active === "organizer" ? (
+          <OrganizerDashboard />
+        ) : (
+          <ParticipantDashboard />
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/registrations/RegistrationConfirmation.jsx ---
+
+import { useLocation, Link } from "react-router-dom";
+
+export default function RegistrationConfirmation() {
+  const location = useLocation();
+  const data = location.state;
+
+  // Cas où on arrive ici sans données
+  if (!data) {
+    return (
+      <div>
+        <h2 className="page-title">Registration Confirmation</h2>
+        <p>No registration data found.</p>
+        <Link to="/events" className="btn btn-primary">
+          Back to events
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2 className="page-title">Registration Successful</h2>
+      <p className="page-subtitle">
+        Your registration has been recorded (fake for now).
+      </p>
+
+      {/* Bloc d’info */}
+      <div className="success-card">
+        <h3 className="success-title">Registration Details</h3>
+
+        <div className="success-info">
+          <p>
+            <span className="card-label">Event:</span> {data.eventTitle}
+          </p>
+          <p>
+            <span className="card-label">Date:</span> {data.eventDate}
+          </p>
+          <p>
+            <span className="card-label-location">Location:</span>{" "}
+            {data.eventLocation}
+          </p>
+          <p>
+            <span className="card-label">Ticket type:</span>{" "}
+            {data.ticketTypeName}
+          </p>
+          <p>
+            <span className="card-label-location">Quantity:</span>{" "}
+            {data.quantity}
+          </p>
+          <p>
+            <span className="card-label-status">Registration ID:</span>{" "}
+            {data.registrationId}
+          </p>
+        </div>
+      </div>
+
+      {/* Boutons */}
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          marginTop: "1.5rem",
+        }}
+      >
+        <Link to="/events" className="btn btn-primary">
+          Back to Events
+        </Link>
+
+        <Link to="/my-registrations" className="btn">
+          My Registrations
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/registrations/MyRegistrations.jsx ---
+
+import { Link } from "react-router-dom";
+
+export default function MyRegistrations() {
+  // Fake registrations pour l'instant
+  const registrations = [
+    {
+      id: "r1",
+      eventId: 1,
+      eventTitle: "Tech Meetup Paris",
+      eventDate: "2025-02-10",
+      eventLocation: "Paris, France",
+      ticketTypeName: "Standard",
+      quantity: 2,
+      registrationDate: "2025-01-10",
+      status: "confirmed",
+    },
+    {
+      id: "r2",
+      eventId: 2,
+      eventTitle: "Online React Workshop",
+      eventDate: "2025-03-01",
+      eventLocation: "Online",
+      ticketTypeName: "Regular",
+      quantity: 1,
+      registrationDate: "2025-02-01",
+      status: "confirmed",
+    },
+  ];
+
+  const handleCancel = (registrationId) => {
+    // Plus tard : appel API DELETE /registrations/:id
+    alert(`Cancel registration ${registrationId} (fake for now)`);
+  };
+
+  if (registrations.length === 0) {
+    return (
+      <div className="page-section">
+        <h2 className="page-title">My Registrations</h2>
+        <p>You have no registrations yet.</p>
+        <Link to="/events" className="btn btn-primary">
+          Browse events
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="page-section">
+      <h2 className="page-title">My Registrations</h2>
+
+      {registrations.map((reg) => (
+        <div key={reg.id} className="card registration-card">
+          <h3 className="registration-title">{reg.eventTitle}</h3>
+
+          <div className="registration-grid">
+            <p>
+              <span className="card-label">Event date:</span> {reg.eventDate}
+            </p>
+
+            <p>
+              <span className="card-label-location">Location:</span>{" "}
+              {reg.eventLocation}
+            </p>
+
+            <p>
+              <span className="card-label">Ticket type:</span>{" "}
+              {reg.ticketTypeName}
+            </p>
+
+            <p>
+              <span className="card-label-location">Quantity:</span>{" "}
+              {reg.quantity}
+            </p>
+
+            <p>
+              <span className="card-label-status">Registration date:</span>{" "}
+              {reg.registrationDate}
+            </p>
+
+            <p>
+              <span className="card-label-status">Status:</span>{" "}
+              <span
+                className={
+                  reg.status === "confirmed"
+                    ? "status-published"
+                    : "status-draft"
+                }
+              >
+                {reg.status}
+              </span>
+            </p>
+          </div>
+
+          <div className="registration-actions">
+            <Link to={`/events/${reg.eventId}`} className="btn btn-primary">
+              View
+            </Link>
+
+            <button
+              className="btn btn-danger"
+              onClick={() => handleCancel(reg.id)}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/events/CreateEvent.jsx ---
+
+import EventForm from "../../components/events/EventForm.jsx";
+
+export default function CreateEvent() {
+  const handleCreateEvent = (eventData) => {
+    console.log("Creating event (fake for now):", eventData);
+    alert("Event created (fake for now)!");
+  };
+
+  return (
+    <div className="page-section">
+
+      <h2 className="page-title">Create a new event</h2>
+
+      <EventForm mode="create" onSubmit={handleCreateEvent} />
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/events/EventDetails.jsx ---
+
+import { useParams } from "react-router-dom";
+import RegistrationForm from "../../components/events/RegistrationForm.jsx";
+
+export default function EventDetails({ hideRegistrationForm = false }) {
+  const { eventId } = useParams();
+
+  // Fake data pour l’instant
+  const events = [
+    {
+      id: 1,
+      title: "Tech Meetup Paris",
+      description: "A meetup for developers in Paris.",
+      date: "2025-02-10",
+      location: "Paris, France",
+      status: "published",
+      organizerName: "Alice",
+      ticketTypes: [
+        { id: "t1", name: "Standard", price: 20, remaining: 50 },
+        { id: "t2", name: "VIP", price: 50, remaining: 10 },
+      ],
+    },
+    {
+      id: 2,
+      title: "Online React Workshop",
+      description: "Learn the basics of React in one day.",
+      date: "2025-03-01",
+      location: "Online",
+      status: "published",
+      organizerName: "Bob",
+      ticketTypes: [
+        { id: "t3", name: "Regular", price: 15, remaining: 100 },
+      ],
+    },
+    {
+      id: 3,
+      title: "Startup Pitch Night",
+      description: "Pitch your startup idea to investors.",
+      date: "2025-04-15",
+      location: "Lyon, France",
+      status: "draft",
+      organizerName: "Charlie",
+      ticketTypes: [],
+    },
+  ];
+
+  const event = events.find((e) => e.id === Number(eventId));
+
+  if (!event) {
+    return <p>Event not found.</p>;
+  }
+
+  return (
+    <div>
+      {/* Titre en néon */}
+      <h2 className="page-title">{event.title}</h2>
+
+      {/* Bloc principal avec infos + tickets */}
+      <div className="card event-details-layout">
+        {/* Colonne gauche : description + meta */}
+        <div>
+          <p style={{ marginBottom: "1rem" }}>{event.description}</p>
+
+          <p>
+            <span className="card-label">Date:</span> {event.date}
+          </p>
+          <p>
+            <span className="card-label-location">Location:</span>{" "}
+            {event.location}
+          </p>
+          <p>
+            <span className="card-label-location">Organizer:</span>{" "}
+            {event.organizerName}
+          </p>
+        </div>
+
+        {/* Colonne droite : tickets */}
+        <div>
+          <h3 className="event-details-section-title">Tickets</h3>
+
+          {event.ticketTypes.length === 0 ? (
+            <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
+              No ticket types defined yet.
+            </p>
+          ) : (
+            <ul className="ticket-list">
+              {event.ticketTypes.map((ticket) => (
+                <li key={ticket.id} className="ticket-item">
+                  <div className="ticket-name">{ticket.name}</div>
+                  <div className="ticket-meta">
+                    <span className="ticket-price">{ticket.price}€</span>
+                    <span className="ticket-remaining">
+                      {ticket.remaining} left
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+
+      {/* Ligne néon */}
+      {!hideRegistrationForm && <hr className="neon-divider" />}
+
+      {/* Formulaire d’inscription dans une card */}
+      {!hideRegistrationForm && (
+        <div className="card">
+          <h3 className="event-details-section-title">
+            Register for this event
+          </h3>
+          <RegistrationForm event={event} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/events/EditEvent.jsx ---
+
+import { useParams } from "react-router-dom";
+import EventForm from "../../components/events/EventForm.jsx";
+
+export default function EditEvent() {
+  const { eventId } = useParams();
+
+  // Fake data temporaire
+  const events = [
+    {
+      id: 1,
+      title: "Tech Meetup Paris",
+      description: "A meetup for developers in Paris.",
+      date: "2025-02-10",
+      location: "Paris, France",
+      status: "published",
+    },
+    {
+      id: 2,
+      title: "Online React Workshop",
+      description: "Learn the basics of React.",
+      date: "2025-03-01",
+      location: "Online",
+      status: "published",
+    },
+    {
+      id: 3,
+      title: "Startup Pitch Night",
+      description: "Pitch your ideas.",
+      date: "2025-04-15",
+      location: "Lyon, France",
+      status: "draft",
+    },
+  ];
+
+  const event = events.find((e) => e.id === Number(eventId));
+
+  if (!event) {
+    return <p>Event not found.</p>;
+  }
+
+  const handleEditEvent = (updatedEvent) => {
+    console.log("UPDATED EVENT (fake for now):", updatedEvent);
+    alert("Event updated! (fake)");
+  };
+
+  return (
+    <div className="page-section">
+
+      <h2 className="page-title">Edit event: {event.title}</h2>
+
+      <EventForm
+        mode="edit"
+        initialEvent={event}
+        onSubmit={handleEditEvent}
+      />
+    </div>
+  );
+}
+
+
+--- FICHIER: src/pages/events/EventList.jsx ---
+
+import EventCard from "../../components/events/EventCard.jsx";
+
+export default function EventList() {
+  // Pour l'instant on a des fausses données 
+  const events = [
+    {
+      id: 1,
+      title: "Tech Meetup Paris",
+      description: "A meetup for developers in Paris.",
+      date: "2025-02-10",
+      location: "Paris, France",
+      status: "published",
+    },
+    {
+      id: 2,
+      title: "Online React Workshop",
+      description: "Learn the basics of React in one day.",
+      date: "2025-03-01",
+      location: "Online",
+      status: "published",
+    },
+    {
+      id: 3,
+      title: "Startup Pitch Night",
+      description: "Pitch your startup idea to investors.",
+      date: "2025-04-15",
+      location: "Lyon, France",
+      status: "draft",
+    },
+  ];
+
+  return (
+    <div className="page-section">
+
+      <h2 className="page-title">Events</h2>
+
+      {/* plus tard : search bar + filtres ici */}
+
+      {events.map((event) => (
+        <EventCard key={event.id} event={event} />
+      ))}
+    </div>
+  );
+}
+
+
+--- FICHIER: src/App.css ---
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+--- FICHIER: src/router/index.jsx ---
+
+import { Routes, Route } from "react-router-dom";
+import MainLayout from "../components/layout/MainLayout";
+
+// Auth pages (Person 1 later)
+import Login from "../pages/auth/Login.jsx";
+import Register from "../pages/auth/Register.jsx";
+
+// Events pages ME
+import EventList from "../pages/events/EventList.jsx";
+import EventDetails from "../pages/events/EventDetails.jsx";
+import CreateEvent from "../pages/events/CreateEvent.jsx";
+import EditEvent from "../pages/events/EditEvent.jsx";
+
+// Dashboard pages ME
+import OrganizerDashboard from "../pages/dashboard/OrganizerDashboard.jsx";
+import ParticipantDashboard from "../pages/dashboard/ParticipantDashboard.jsx";
+import DashboardSwitch from "../pages/dashboard/DashboardSwitch.jsx";
+
+// Registrations pages ME
+import MyRegistrations from "../pages/registrations/MyRegistrations.jsx";
+import RegistrationConfirmation from "../pages/registrations/RegistrationConfirmation.jsx";
+
+function AppRoutes() {
+  return (
+    <Routes>
+      {/* Routes avec layout commun */}
+      <Route path="/" element={<MainLayout />}>
+        <Route path="dashboard-switch" element={<DashboardSwitch />} />
+
+        {/* Home = EventList */}
+        <Route index element={<EventList />} />
+
+        {/* Events */}
+        <Route path="events" element={<EventList />} />
+
+        {/* Version normale -> formulaire visible */}
+        <Route 
+          path="events/:eventId" 
+          element={<EventDetails hideRegistrationForm={false} />} 
+        />
+
+        {/* Version dashboard participant -> formulaire caché */}
+        <Route 
+          path="dashboard/participant/event/:eventId" 
+          element={<EventDetails hideRegistrationForm={true} />} 
+        />
+
+        <Route path="events/create" element={<CreateEvent />} />
+        <Route path="events/:eventId/edit" element={<EditEvent />} />
+
+        {/* Dashboards */}
+        <Route path="dashboard/organizer" element={<OrganizerDashboard />} />
+        <Route path="dashboard/participant" element={<ParticipantDashboard />} />
+
+        {/* Registrations */}
+        <Route path="my-registrations" element={<MyRegistrations />} />
+        <Route
+          path="registrations/confirmation/:registrationId"
+          element={<RegistrationConfirmation />}
+        />
+      </Route>
+
+      {/* Auth routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
+  );
+}
+
+export default AppRoutes;

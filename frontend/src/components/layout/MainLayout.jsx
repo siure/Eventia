@@ -5,20 +5,33 @@ export default function MainLayout() {
     <>
       <header className="navbar">
         <div className="navbar-inner">
-          <div className="navbar-title">EVENTIA</div>
+          {/* EVENTIA renvoie vers /events */}
+          <Link to="/events" className="navbar-title">
+            EVENTIA
+          </Link>
 
           <nav className="navbar-links">
-            <Link to="/events" className="navbar-link">Events</Link>
-            <Link to="/dashboard/organizer" className="navbar-link">Organizer Dashboard</Link>
-            <Link to="/dashboard/participant" className="navbar-link">Participant Dashboard</Link>
-            <Link to="/my-registrations" className="navbar-link">My Registrations</Link>
+            {/* Tu peux garder ou enlever ces liens plus tard si tu veux */}
+            <Link to="/dashboard/organizer" className="navbar-link">
+              Organizer Dashboard
+            </Link>
+            <Link to="/dashboard/participant" className="navbar-link">
+              Participant Dashboard
+            </Link>
+            <Link to="/my-registrations" className="navbar-link">
+              My Registrations
+            </Link>
             <Link to="/login" className="navbar-link">Login</Link>
             <Link to="/register" className="navbar-link">Register</Link>
           </nav>
         </div>
       </header>
 
-      {/*centrage global */}
+      {/* 🔹 Bouton "Profile" flottant en haut à droite */}
+      <Link to="/dashboard-switch" className="profile-button">
+        Profile
+      </Link>
+
       <main className="app-container">
         <div className="page-section">
           <Outlet />

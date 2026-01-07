@@ -68,18 +68,6 @@ export default function EventDetails({ hideRegistrationForm = false }) {
             {event.location}
           </p>
           <p>
-            <span className="card-label-status">Status:</span>{" "}
-            <span
-              className={
-                event.status === "published"
-                  ? "status-published"
-                  : "status-draft"
-              }
-            >
-              {event.status}
-            </span>
-          </p>
-          <p>
             <span className="card-label-location">Organizer:</span>{" "}
             {event.organizerName}
           </p>
