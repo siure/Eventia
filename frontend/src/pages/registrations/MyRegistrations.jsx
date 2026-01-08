@@ -310,7 +310,7 @@ export default function MyRegistrations() {
                     View Event
                   </Link>
                 ) : (
-                  <span className="btn btn-primary my-registrations-disabled-link">
+                  <span className="btn btn-primary" style={{ opacity: 0.5, cursor: "not-allowed" }}>
                     View Event (ID missing)
                   </span>
                 )}
