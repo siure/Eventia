@@ -1,0 +1,46 @@
+/* TicketTypeFields Component Styles */
+
+.ticket-type-empty-message {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.ticket-type-card {
+  margin-bottom: 1rem;
+  border-color: rgba(236, 72, 153, 0.3);
+  background-color: rgba(15, 23, 42, 0.6);
+}
+
+.ticket-type-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ticket-type-title {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--primary-soft);
+}
+
+.ticket-type-remove-btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.ticket-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.ticket-type-add-btn {
+  margin-top: 0.5rem;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+

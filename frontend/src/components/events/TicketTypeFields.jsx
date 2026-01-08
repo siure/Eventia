@@ -1,3 +1,5 @@
+import "../../styles/components/TicketTypeFields.css";
+
 export default function TicketTypeFields({ ticketTypes, setTicketTypes }) {
   const handleChange = (index, field, value) => {
     const updated = ticketTypes.map((ticket, i) =>
@@ -24,12 +26,7 @@ export default function TicketTypeFields({ ticketTypes, setTicketTypes }) {
   return (
     <div>
       {ticketTypes.length === 0 && (
-        <p style={{ 
-          fontSize: "0.9rem", 
-          color: "var(--text-muted)",
-          marginBottom: "1rem",
-          fontStyle: "italic"
-        }}>
+        <p className="ticket-type-empty-message">
           No ticket types added yet. Click the button below to add one.
         </p>
       )}
@@ -37,34 +34,16 @@ export default function TicketTypeFields({ ticketTypes, setTicketTypes }) {
       {ticketTypes.map((ticket, index) => (
         <div
           key={ticket.id || index}
-          className="card"
-          style={{
-            marginBottom: "1rem",
-            borderColor: "rgba(236, 72, 153, 0.3)",
-            backgroundColor: "rgba(15, 23, 42, 0.6)",
-          }}
+          className="card ticket-type-card"
         >
-          <div style={{ 
-            display: "flex", 
-            justifyContent: "space-between", 
-            alignItems: "center",
-            marginBottom: "1rem"
-          }}>
-            <h4 style={{ 
-              margin: 0, 
-              fontSize: "1rem",
-              color: "var(--primary-soft)"
-            }}>
+          <div className="ticket-type-header">
+            <h4 className="ticket-type-title">
               Ticket Type #{index + 1}
             </h4>
             <button
               type="button"
               onClick={() => handleRemove(index)}
-              className="btn btn-danger"
-              style={{ 
-                padding: "0.4rem 0.8rem",
-                fontSize: "0.85rem"
-              }}
+              className="btn btn-danger ticket-type-remove-btn"
             >
               Remove
             </button>
@@ -83,14 +62,7 @@ export default function TicketTypeFields({ ticketTypes, setTicketTypes }) {
             />
           </div>
 
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "1fr 1fr", 
-            gap: "1rem",
-            marginTop: "0.75rem"
-          }}
-          className="event-form-grid"
-          >
+          <div className="event-form-grid ticket-type-grid">
             <div className="field">
               <label className="field-label">Price (€)</label>
               <input
@@ -126,12 +98,7 @@ export default function TicketTypeFields({ ticketTypes, setTicketTypes }) {
       <button
         type="button"
         onClick={handleAdd}
-        className="btn"
-        style={{
-          marginTop: "0.5rem",
-          borderColor: "var(--primary)",
-          color: "var(--primary)",
-        }}
+        className="btn ticket-type-add-btn"
       >
         + Add Ticket Type
       </button>

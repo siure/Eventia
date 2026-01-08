@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import TicketTypeFields from "./TicketTypeFields.jsx";
+import "../../styles/components/EventForm.css";
 
 export default function EventForm({ initialEvent = null, onSubmit, mode = "create", loading = false }) {
   // Get current user's name from localStorage for auto-populating organizer
@@ -74,27 +75,16 @@ export default function EventForm({ initialEvent = null, onSubmit, mode = "creat
       <div className="field">
         <label className="field-label">Description</label>
         <textarea
-          className="input"
+          className="input event-form-textarea"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
           rows={5}
           placeholder="Describe your event..."
-          style={{ 
-            resize: "vertical",
-            minHeight: "120px",
-            fontFamily: "inherit"
-          }}
         />
       </div>
 
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: "1fr 1fr", 
-        gap: "1rem"
-      }}
-      className="event-form-grid"
-      >
+      <div className="event-form-grid">
         <div className="field">
           <label className="field-label">Date</label>
           <input
@@ -144,11 +134,11 @@ export default function EventForm({ initialEvent = null, onSubmit, mode = "creat
       </div>
 
       {/* Divider */}
-      <hr className="neon-divider" style={{ margin: "1.5rem 0" }} />
+      <hr className="neon-divider event-form-divider" />
 
       {/* Gestion des ticket types */}
-      <div style={{ marginBottom: "1.5rem" }}>
-        <h3 className="event-details-section-title" style={{ marginBottom: "1rem" }}>
+      <div className="event-form-ticket-section">
+        <h3 className="event-details-section-title event-form-ticket-title">
           Ticket Types
         </h3>
         <TicketTypeFields
@@ -157,19 +147,11 @@ export default function EventForm({ initialEvent = null, onSubmit, mode = "creat
         />
       </div>
 
-      <div style={{ 
-        display: "flex", 
-        gap: "1rem", 
-        justifyContent: "flex-end",
-        marginTop: "2rem",
-        paddingTop: "1.5rem",
-        borderTop: "1px solid rgba(236, 72, 153, 0.2)"
-      }}>
+      <div className="event-form-actions">
         <button 
-          className="btn btn-primary" 
+          className="btn btn-primary event-form-submit-btn" 
           type="submit"
           disabled={loading}
-          style={{ minWidth: "150px" }}
         >
           {loading 
             ? (mode === "create" ? "Creating..." : "Saving...") 

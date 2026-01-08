@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerForEvent } from "../../services/registrations";
+import "../../styles/components/RegistrationForm.css";
 
 export default function RegistrationForm({ event }) {
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ export default function RegistrationForm({ event }) {
   return (
     <form onSubmit={handleSubmit}>
       {error && (
-        <div className="error" style={{ marginBottom: "1rem", padding: "0.75rem" }}>
+        <div className="error registration-form-error">
           {error}
         </div>
       )}
@@ -139,7 +140,7 @@ export default function RegistrationForm({ event }) {
           required
         />
         {selectedTicket && (
-          <small style={{ display: "block", marginTop: "0.25rem", color: "var(--text-muted)" }}>
+          <small className="registration-form-quantity-hint">
             Maximum {maxQuantity} tickets available
           </small>
         )}

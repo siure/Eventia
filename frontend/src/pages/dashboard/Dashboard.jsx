@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getMyRegistrations } from "../../services/registrations";
 import { getMyEvents, deleteEvent } from "../../services/events";
 import { getProfile, updateProfile } from "../../services/auth";
+import "../../styles/pages/Dashboard.css";
 
 export default function Dashboard() {
   const [activeView, setActiveView] = useState("participant"); // 'organizer' or 'participant' or 'account'
@@ -271,48 +272,23 @@ export default function Dashboard() {
   return (
     <div>
       {/* Toggle Buttons */}
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          marginBottom: "2rem",
-          justifyContent: "center",
-        }}
-      >
+      <div className="dashboard-toggle-buttons">
         <button
-          className={activeView === "organizer" ? "btn btn-primary" : "btn"}
+          className={`btn dashboard-toggle-btn ${activeView === "organizer" ? "btn-primary dashboard-toggle-btn-active" : "dashboard-toggle-btn-inactive"}`}
           onClick={() => setActiveView("organizer")}
-          style={{
-            padding: "0.75rem 1.5rem",
-            fontSize: "1rem",
-            fontWeight: activeView === "organizer" ? "bold" : "normal",
-            opacity: activeView === "organizer" ? 1 : 0.6,
-          }}
         >
           Organizer Dashboard
         </button>
         <button
-          className={activeView === "participant" ? "btn btn-primary" : "btn"}
+          className={`btn dashboard-toggle-btn ${activeView === "participant" ? "btn-primary dashboard-toggle-btn-active" : "dashboard-toggle-btn-inactive"}`}
           onClick={() => setActiveView("participant")}
-          style={{
-            padding: "0.75rem 1.5rem",
-            fontSize: "1rem",
-            fontWeight: activeView === "participant" ? "bold" : "normal",
-            opacity: activeView === "participant" ? 1 : 0.6,
-          }}
-          >
+        >
           Participant Dashboard
         </button>
 
         <button
-        className={activeView === "account" ? "btn btn-primary" : "btn"}
-        onClick={() => setActiveView("account")}
-        style={{
-          padding: "0.75rem 1.5rem",
-          fontSize: "1rem",
-          fontWeight: activeView === "account" ? "bold" : "normal",
-          opacity: activeView === "account" ? 1 : 0.6,
-        }}
+          className={`btn dashboard-toggle-btn ${activeView === "account" ? "btn-primary dashboard-toggle-btn-active" : "dashboard-toggle-btn-inactive"}`}
+          onClick={() => setActiveView("account")}
         >
           Account Settings
         </button>
@@ -323,13 +299,7 @@ export default function Dashboard() {
         <>
           <h2 className="page-title">Organizer Dashboard</h2>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: "1.5rem",
-            }}
-          >
+          <div className="dashboard-create-btn-container">
             <Link to="/events/create" className="btn btn-primary">
               + Create New Event
             </Link>
@@ -351,13 +321,12 @@ export default function Dashboard() {
             <>
               {events.length === 0 ? (
                 <div className="card">
-                  <p style={{ color: "var(--text-muted)" }}>
+                  <p className="dashboard-empty-message">
                     You haven't created any events yet.
                   </p>
                   <Link
                     to="/events/create"
-                    className="btn btn-primary"
-                    style={{ marginTop: "1rem" }}
+                    className="btn btn-primary dashboard-empty-link"
                   >
                     Create your first event
                   </Link>
@@ -388,13 +357,7 @@ export default function Dashboard() {
                       {event.registrations}
                     </p>
 
-                    <div
-                      style={{
-                        marginTop: "0.5rem",
-                        display: "flex",
-                        gap: "1rem",
-                      }}
-                    >
+                    <div className="dashboard-event-actions">
                       <Link
                         to={`/events/${event.id}`}
                         className="btn btn-primary"
@@ -445,31 +408,25 @@ export default function Dashboard() {
           {!loading && !error && (
             <>
               {/* --- STAT CARDS --- */}
-              <div className="card">
-                <p className="card-label">Total registrations</p>
-                <p style={{ fontSize: "1.4rem", fontWeight: "bold" }}>
-                  {totalRegistrations}
-                </p>
-              </div>
+              <div className="dashboard-stats-container">
+                <div className="card dashboard-stats-card">
+                  <p className="card-label">Total registrations</p>
+                  <p className="dashboard-stats-title">
+                    {totalRegistrations}
+                  </p>
+                </div>
 
-              <div className="card">
-                <p className="card-label-location">Total tickets</p>
-                <p style={{ fontSize: "1.4rem", fontWeight: "bold" }}>
-                  {totalTickets}
-                </p>
+                <div className="card dashboard-stats-card">
+                  <p className="card-label-location">Total tickets</p>
+                  <p className="dashboard-stats-title">
+                    {totalTickets}
+                  </p>
+                </div>
               </div>
 
               {/* --- UPCOMING EVENTS HEADER --- */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: "1.5rem",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <h3 style={{ margin: 0 }}>Upcoming events</h3>
+              <div className="dashboard-upcoming-header">
+                <h3 className="dashboard-section-title">Upcoming events</h3>
 
                 <Link to="/my-registrations" className="btn btn-primary">
                   View all registrations
@@ -479,20 +436,20 @@ export default function Dashboard() {
               {/* --- UPCOMING EVENTS LIST --- */}
               {upcomingRegistrations.length === 0 ? (
                 <div className="card">
-                  <p style={{ color: "var(--text-muted)" }}>
+                  <p className="dashboard-empty-message">
                     {totalRegistrations === 0
                       ? "You have no registrations yet."
                       : "No upcoming events."}
                   </p>
                   {totalRegistrations === 0 && (
-                    <Link to="/events" className="btn btn-primary" style={{ marginTop: "1rem" }}>
+                    <Link to="/events" className="btn btn-primary dashboard-upcoming-link">
                       Browse events
                     </Link>
                   )}
                 </div>
               ) : (
                 upcomingRegistrations.map((reg) => (
-                  <div key={reg.id} className="card registration-card" style={{ marginBottom: "1rem" }}>
+                  <div key={reg.id} className="card registration-card dashboard-registration-card">
                     <h3 className="registration-title">{reg.eventTitle}</h3>
 
                     <div className="registration-grid">
@@ -547,7 +504,7 @@ export default function Dashboard() {
                           View Event
                         </Link>
                       ) : (
-                        <span className="btn btn-primary" style={{ opacity: 0.5, cursor: "not-allowed" }}>
+                        <span className="btn btn-primary dashboard-disabled-link">
                           View Event (ID missing)
                         </span>
                       )}
@@ -577,9 +534,9 @@ export default function Dashboard() {
             </div>
           )}
 
-          {profileSuccess && (
-            <div className="card" style={{ backgroundColor: "var(--bg-secondary)", borderColor: "var(--primary)" }}>
-              <p style={{ color: "var(--primary)" }}>{profileSuccess}</p>
+            {profileSuccess && (
+            <div className="card dashboard-profile-success-card">
+              <p className="dashboard-profile-success-message">{profileSuccess}</p>
             </div>
           )}
 
@@ -615,9 +572,8 @@ export default function Dashboard() {
                 {!showPasswordFields && (
                   <button
                     type="button"
-                    className="btn"
+                    className="btn dashboard-password-btn"
                     onClick={() => setShowPasswordFields(true)}
-                    style={{ marginBottom: "1rem" }}
                   >
                     Change Password
                   </button>
@@ -677,7 +633,7 @@ export default function Dashboard() {
 
                     <button
                       type="button"
-                      className="btn"
+                      className="btn dashboard-password-btn"
                       onClick={() => {
                         setShowPasswordFields(false);
                         setFormData({
@@ -687,7 +643,6 @@ export default function Dashboard() {
                           confirmPassword: "",
                         });
                       }}
-                      style={{ marginBottom: "1rem" }}
                     >
                       Cancel Password Change
                     </button>
@@ -696,9 +651,8 @@ export default function Dashboard() {
 
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-primary dashboard-profile-submit-btn"
                   disabled={profileLoading}
-                  style={{ width: "100%", marginTop: "1rem" }}
                 >
                   {profileLoading ? "Updating..." : "Update Profile"}
                 </button>

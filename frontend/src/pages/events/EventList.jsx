@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import EventCard from "../../components/events/EventCard.jsx";
 import { getEvents } from "../../services/events.js";
+import "../../styles/pages/EventList.css";
 
 export default function EventList() {
   const [events, setEvents] = useState([]);
@@ -64,7 +65,7 @@ export default function EventList() {
 
       {events.length === 0 ? (
         <div className="card">
-          <p style={{ color: "var(--text-muted)" }}>
+          <p className="event-list-empty">
             No upcoming events available at the moment.
           </p>
         </div>

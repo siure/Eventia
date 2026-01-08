@@ -1,4 +1,5 @@
 import { useLocation, Link } from "react-router-dom";
+import "../../styles/pages/RegistrationConfirmation.css";
 
 export default function RegistrationConfirmation() {
   const location = useLocation();
@@ -26,7 +27,7 @@ export default function RegistrationConfirmation() {
         <h2 className="page-title">Registration Confirmation</h2>
         <div className="card">
           <p>No registration data found.</p>
-          <Link to="/events" className="btn btn-primary" style={{ marginTop: "1rem", display: "inline-block" }}>
+          <Link to="/events" className="btn btn-primary registration-confirmation-back-btn">
             Back to Events
           </Link>
         </div>
@@ -42,12 +43,12 @@ export default function RegistrationConfirmation() {
       </p>
 
       {/* Info block */}
-      <div className="card" style={{ marginTop: "1.5rem" }}>
-        <h3 style={{ marginBottom: "1rem", color: "var(--primary-color)" }}>
+      <div className="card registration-confirmation-details-card">
+        <h3 className="registration-confirmation-details-title">
           Registration Details
         </h3>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        <div className="registration-confirmation-details-grid">
           <p>
             <span className="card-label">Event:</span> {data.eventTitle || "N/A"}
           </p>
@@ -76,14 +77,7 @@ export default function RegistrationConfirmation() {
       </div>
 
       {/* Buttons */}
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          marginTop: "1.5rem",
-          flexWrap: "wrap",
-        }}
-      >
+      <div className="registration-confirmation-actions">
         <Link to="/events" className="btn btn-primary">
           Back to Events
         </Link>

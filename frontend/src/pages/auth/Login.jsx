@@ -1,6 +1,7 @@
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { login } from "../../services/auth";
 import { useState } from "react";
+import "../../styles/pages/Login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -69,34 +70,17 @@ export default function Login() {
 
           <div className="field">
             <label className="field-label">Password</label>
-            <div style={{ position: "relative" }}>
+            <div className="login-password-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
-                className="input"
+                className="input login-password-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                style={{ paddingRight: "2.5rem" }}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                style={{
-                  position: "absolute",
-                  right: "0.5rem",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "0.25rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-muted)",
-                  transition: "color 0.2s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary-soft)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+                className="login-password-toggle"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
@@ -135,10 +119,9 @@ export default function Login() {
           {error && <p className="error">{error}</p>}
 
           <button
-            className="btn btn-primary"
+            className="btn btn-primary login-submit-btn"
             type="submit"
             disabled={loading}
-            style={{ width: "100%", marginTop: "0.5rem" }}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
@@ -146,7 +129,7 @@ export default function Login() {
 
         </form>
 
-        <p style={{ marginTop: "0.75rem", fontSize: "0.9rem" }}>
+        <p className="login-footer">
           Don&apos;t have an account?{" "}
           <Link to="/register" className="navbar-link">
             Register

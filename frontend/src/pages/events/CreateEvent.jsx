@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EventForm from "../../components/events/EventForm.jsx";
 import { createEvent } from "../../services/events";
+import "../../styles/pages/CreateEvent.css";
 
 export default function CreateEvent() {
   const [loading, setLoading] = useState(false);
@@ -48,16 +49,12 @@ export default function CreateEvent() {
       <h2 className="page-title">Create a New Event</h2>
 
       {error && (
-        <div className="card" style={{ 
-          marginBottom: "1.5rem",
-          borderColor: "var(--accent)",
-          backgroundColor: "rgba(236, 72, 153, 0.1)"
-        }}>
+        <div className="card create-event-error-card">
           <p className="error">{error}</p>
         </div>
       )}
 
-      <div className="card" style={{ maxWidth: "800px", margin: "0 auto" }}>
+      <div className="card create-event-form-card">
         <EventForm 
           mode="create" 
           onSubmit={handleCreateEvent}

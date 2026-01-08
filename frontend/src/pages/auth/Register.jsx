@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../services/auth";
 import { useState } from "react";
+import "../../styles/pages/Register.css";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -81,34 +82,17 @@ export default function Register() {
 
           <div className="field">
             <label className="field-label">Password</label>
-            <div style={{ position: "relative" }}>
+            <div className="register-password-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
-                className="input"
+                className="input register-password-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                style={{ paddingRight: "2.5rem" }}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                style={{
-                  position: "absolute",
-                  right: "0.5rem",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "0.25rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-muted)",
-                  transition: "color 0.2s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary-soft)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+                className="register-password-toggle"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
@@ -146,34 +130,17 @@ export default function Register() {
 
           <div className="field">
             <label className="field-label">Confirm password</label>
-            <div style={{ position: "relative" }}>
+            <div className="register-password-wrapper">
               <input
                 type={showConfirmPassword ? "text" : "password"}
-                className="input"
+                className="input register-password-input"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                style={{ paddingRight: "2.5rem" }}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                style={{
-                  position: "absolute",
-                  right: "0.5rem",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "0.25rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-muted)",
-                  transition: "color 0.2s ease",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary-soft)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
+                className="register-password-toggle"
                 aria-label={showConfirmPassword ? "Hide password" : "Show password"}
               >
                 {showConfirmPassword ? (
@@ -213,15 +180,14 @@ export default function Register() {
 
           <button
             type="submit"
-            className="btn btn-primary"
-            style={{ width: "100%", marginTop: "0.5rem" }}
+            className="btn btn-primary register-submit-btn"
             disabled={loading}
           >
             {loading ? "Registering..." : "Register"} 
           </button>
         </form>
 
-        <p style={{ marginTop: "0.75rem", fontSize: "0.9rem" }}>
+        <p className="register-footer">
           Already have an account?{" "}
           <Link to="/login" className="navbar-link">
             Login

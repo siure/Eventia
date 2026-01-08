@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import EventForm from "../../components/events/EventForm.jsx";
 import { getEventById, updateEvent } from "../../services/events";
+import "../../styles/pages/EditEvent.css";
 
 export default function EditEvent() {
   const { eventId } = useParams();
@@ -110,7 +111,7 @@ export default function EditEvent() {
       <h2 className="page-title">Edit event: {event.title}</h2>
 
       {error && (
-        <div className="card" style={{ marginBottom: "1rem" }}>
+        <div className="card edit-event-form-card">
           <p className="error">{error}</p>
         </div>
       )}

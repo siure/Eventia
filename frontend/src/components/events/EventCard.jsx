@@ -1,25 +1,26 @@
 import { Link } from "react-router-dom";
+import "../../styles/components/EventCard.css";
 
 export default function EventCard({ event }) {
   return (
     <div className="card event-card">
       <div className="event-card-content">
-        <h3 style={{ marginBottom: "0.4rem" }}>{event.title}</h3>
+        <h3 className="event-card-title">{event.title}</h3>
 
-        <p style={{ marginBottom: "0.6rem", fontSize: "0.9rem" }}>
+        <p className="event-card-description">
           {event.description}
         </p>
 
-        <p style={{ fontSize: "0.9rem" }}>
+        <p className="event-card-meta">
           <span className="card-label">Date:</span> {event.date}
         </p>
 
-        <p style={{ fontSize: "0.9rem" }}>
+        <p className="event-card-meta">
           <span className="card-label-location">Location:</span>{" "}
           {event.location}
         </p>
 
-        <div style={{ marginTop: "0.75rem" }}>
+        <div className="event-card-actions">
           {event.id ? (
             <Link 
               to={`/events/${event.id}`} 
@@ -28,7 +29,7 @@ export default function EventCard({ event }) {
               View details
             </Link>
           ) : (
-            <span className="btn btn-primary" style={{ opacity: 0.5, cursor: "not-allowed" }}>
+            <span className="btn btn-primary event-card-disabled-btn">
               View details (ID missing)
             </span>
           )}

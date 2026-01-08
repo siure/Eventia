@@ -1,6 +1,7 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { logout } from "../../services/auth";
+import "../../styles/components/MainLayout.css";
 
 export default function MainLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -72,29 +73,7 @@ export default function MainLayout() {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="btn navbar-account-btn"
-                  style={{
-                    borderColor: "#fb7185",
-                    color: "#fb7185",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textDecoration: "none",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(251, 113, 133, 0.12)";
-                    e.currentTarget.style.borderColor = "#fca5a5";
-                    e.currentTarget.style.color = "#fca5a5";
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(251, 113, 133, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.borderColor = "#fb7185";
-                    e.currentTarget.style.color = "#fb7185";
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
+                  className="btn navbar-account-btn navbar-logout-btn"
                 >
                   Logout
                 </button>

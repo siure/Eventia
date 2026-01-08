@@ -1,0 +1,6 @@
+/* EventList Page Styles */
+
+.event-list-empty {
+  color: var(--text-muted);
+}
+

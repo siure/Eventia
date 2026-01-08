@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getMyRegistrations, cancelRegistration } from "../../services/registrations";
+import "../../styles/pages/MyRegistrations.css";
 
 export default function MyRegistrations() {
   const [registrations, setRegistrations] = useState([]);
@@ -119,9 +120,8 @@ export default function MyRegistrations() {
         <div className="card">
           <p className="error">{error}</p>
           <button 
-            className="btn btn-primary" 
+            className="btn btn-primary my-registrations-retry-btn" 
             onClick={fetchRegistrations}
-            style={{ marginTop: "1rem" }}
           >
             Try Again
           </button>
@@ -135,7 +135,7 @@ export default function MyRegistrations() {
       <div className="page-section">
         <h2 className="page-title">My Registrations</h2>
         <div className="card">
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
+          <p className="my-registrations-empty">
             You have no registrations yet.
           </p>
           <Link to="/events" className="btn btn-primary">
@@ -175,11 +175,11 @@ export default function MyRegistrations() {
       {/* Upcoming Registrations */}
       {upcomingRegistrations.length > 0 && (
         <>
-          <h3 style={{ marginTop: "1.5rem", marginBottom: "1rem" }}>
+          <h3 className="my-registrations-section-title">
             Upcoming Events ({upcomingRegistrations.length})
           </h3>
           {upcomingRegistrations.map((reg) => (
-            <div key={reg.id} className="card registration-card" style={{ marginBottom: "1rem" }}>
+            <div key={reg.id} className="card registration-card my-registrations-card">
               <h3 className="registration-title">{reg.eventTitle}</h3>
 
               <div className="registration-grid">
@@ -251,11 +251,11 @@ export default function MyRegistrations() {
       {/* Past Registrations */}
       {pastRegistrations.length > 0 && (
         <>
-          <h3 style={{ marginTop: "2rem", marginBottom: "1rem" }}>
+          <h3 className="my-registrations-past-section-title">
             Past Events ({pastRegistrations.length})
           </h3>
           {pastRegistrations.map((reg) => (
-            <div key={reg.id} className="card registration-card" style={{ marginBottom: "1rem", opacity: 0.8 }}>
+            <div key={reg.id} className="card registration-card my-registrations-past-card">
               <h3 className="registration-title">{reg.eventTitle}</h3>
 
               <div className="registration-grid">
@@ -310,7 +310,7 @@ export default function MyRegistrations() {
                     View Event
                   </Link>
                 ) : (
-                  <span className="btn btn-primary" style={{ opacity: 0.5, cursor: "not-allowed" }}>
+                  <span className="btn btn-primary my-registrations-disabled-link">
                     View Event (ID missing)
                   </span>
                 )}

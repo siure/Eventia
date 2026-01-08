@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import RegistrationForm from "../../components/events/RegistrationForm.jsx";
 import { getEventById } from "../../services/events.js";
+import "../../styles/pages/EventDetails.css";
 
 export default function EventDetails({ hideRegistrationForm = false }) {
   const { eventId } = useParams();
@@ -97,7 +98,7 @@ export default function EventDetails({ hideRegistrationForm = false }) {
       <div className="card event-details-layout">
         {/* Colonne gauche : description + meta */}
         <div>
-          <p style={{ marginBottom: "1rem" }}>{event.description}</p>
+          <p className="event-details-description">{event.description}</p>
 
           <p>
             <span className="card-label">Date:</span> {event.date}
@@ -113,13 +114,7 @@ export default function EventDetails({ hideRegistrationForm = false }) {
           </p>
 
           {isPastEvent && (
-            <p style={{ 
-              marginTop: "1rem", 
-              padding: "0.75rem", 
-              backgroundColor: "var(--bg-secondary)", 
-              borderRadius: "4px",
-              color: "var(--text-muted)"
-            }}>
+            <p className="event-details-past-notice">
               <strong>This event has already passed.</strong>
             </p>
           )}
@@ -130,7 +125,7 @@ export default function EventDetails({ hideRegistrationForm = false }) {
           <h3 className="event-details-section-title">Tickets</h3>
 
           {event.ticketTypes.length === 0 ? (
-            <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
+            <p className="event-details-no-tickets">
               No ticket types defined yet.
             </p>
           ) : (
@@ -159,7 +154,7 @@ export default function EventDetails({ hideRegistrationForm = false }) {
 
       {/* Formulaire d'inscription dans une card - only show if event is not past */}
       {!hideRegistrationForm && !isPastEvent && (
-        <div className="card">
+        <div className="card event-details-registration-card">
           <h3 className="event-details-section-title">
             Register for this event
           </h3>
@@ -169,8 +164,8 @@ export default function EventDetails({ hideRegistrationForm = false }) {
 
       {/* Message if trying to register for past event */}
       {!hideRegistrationForm && isPastEvent && (
-        <div className="card" style={{ marginTop: "1.5rem" }}>
-          <p style={{ color: "var(--text-muted)", textAlign: "center" }}>
+        <div className="card event-details-registration-card">
+          <p className="event-details-past-message">
             Registration is no longer available for this event as it has already passed.
           </p>
         </div>
