@@ -1,0 +1,39 @@
+/* EventForm Component Styles */
+
+.event-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.event-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.event-form-divider {
+  margin: 1.5rem 0;
+}
+
+.event-form-ticket-section {
+  margin-bottom: 1.5rem;
+}
+
+.event-form-ticket-title {
+  margin-bottom: 1rem;
+}
+
+.event-form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+.event-form-submit-btn {
+  min-width: 150px;
+}
+

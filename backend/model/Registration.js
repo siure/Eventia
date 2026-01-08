@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { toJSONPlugin } from './plugins/toJSON.js';
 
 const registrationSchema = mongoose.Schema(
   {
@@ -14,12 +15,12 @@ const registrationSchema = mongoose.Schema(
     },
     ticketType_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "TicketType",
       required: true,
     },
     quantity: {
       type: Number,
       required: true,
+      min: 1,
     },
     status: {
       type: String,
@@ -30,6 +31,17 @@ const registrationSchema = mongoose.Schema(
   {
     timestamps: true,
   },
+);
+
+registrationSchema.plugin(toJSONPlugin);
+
+// Prevent duplicate registrations: same user, same event, same ticket type
+registrationSchema.index(
+  { user_id: 1, event_id: 1, ticketType_id: 1 },
+  { 
+    unique: true,
+    partialFilterExpression: { status: { $ne: "cancelled" } }
+  }
 );
 
 const Registration = mongoose.model("Registration", registrationSchema);

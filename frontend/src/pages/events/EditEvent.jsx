@@ -1,57 +1,126 @@
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import EventForm from "../../components/events/EventForm.jsx";
+import { getEventById, updateEvent } from "../../services/events";
+import "../../styles/pages/EditEvent.css";
 
 export default function EditEvent() {
   const { eventId } = useParams();
+  const navigate = useNavigate();
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fake data temporaire
-  const events = [
-    {
-      id: 1,
-      title: "Tech Meetup Paris",
-      description: "A meetup for developers in Paris.",
-      date: "2025-02-10",
-      location: "Paris, France",
-      status: "published",
-    },
-    {
-      id: 2,
-      title: "Online React Workshop",
-      description: "Learn the basics of React.",
-      date: "2025-03-01",
-      location: "Online",
-      status: "published",
-    },
-    {
-      id: 3,
-      title: "Startup Pitch Night",
-      description: "Pitch your ideas.",
-      date: "2025-04-15",
-      location: "Lyon, France",
-      status: "draft",
-    },
-  ];
+  useEffect(() => {
+    const fetchEvent = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await getEventById(eventId);
+        const eventData = response.data.event;
+        
+        // Transform backend data to frontend format
+        // Backend uses 'type', frontend form uses 'name'
+        const transformedEvent = {
+          ...eventData,
+          date: new Date(eventData.date).toISOString().split("T")[0],
+          ticketTypes: eventData.ticketTypes.map((tt) => ({
+            id: tt.id,
+            name: tt.type, // Map type to name for the form
+            price: tt.price,
+            capacity: tt.capacity,
+          })),
+        };
+        
+        setEvent(transformedEvent);
+      } catch (err) {
+        console.error("Error fetching event:", err);
+        setError(
+          err.response?.data?.message || "Failed to load event. Please try again."
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const event = events.find((e) => e.id === Number(eventId));
+    fetchEvent();
+  }, [eventId]);
 
-  if (!event) {
-    return <p>Event not found.</p>;
+  const handleEditEvent = async (updatedEvent) => {
+    setSaving(true);
+    setError(null);
+
+    try {
+      // Transform ticketTypes: name -> type
+      const transformedTicketTypes = updatedEvent.ticketTypes.map((tt) => ({
+        type: tt.name || tt.type || "",
+        price: Number(tt.price) || 0,
+        capacity: Number(tt.capacity) || 0,
+      }));
+
+      const eventPayload = {
+        ...updatedEvent,
+        ticketTypes: transformedTicketTypes,
+      };
+
+      await updateEvent(eventId, eventPayload);
+      
+      // Navigate to dashboard on success
+      navigate("/dashboard", { 
+        state: { message: "Event updated successfully!" } 
+      });
+    } catch (err) {
+      console.error("Error updating event:", err);
+      setError(
+        err.response?.data?.message || 
+        err.response?.data?.error || 
+        "Failed to update event. Please try again."
+      );
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="page-section">
+        <p>Loading event...</p>
+      </div>
+    );
   }
 
-  const handleEditEvent = (updatedEvent) => {
-    console.log("UPDATED EVENT (fake for now):", updatedEvent);
-    alert("Event updated! (fake)");
-  };
+  if (error && !event) {
+    return (
+      <div className="page-section">
+        <p className="error">{error}</p>
+      </div>
+    );
+  }
+
+  if (!event) {
+    return (
+      <div className="page-section">
+        <p>Event not found.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="page-section">
-
       <h2 className="page-title">Edit event: {event.title}</h2>
+
+      {error && (
+        <div className="card edit-event-form-card">
+          <p className="error">{error}</p>
+        </div>
+      )}
 
       <EventForm
         mode="edit"
         initialEvent={event}
         onSubmit={handleEditEvent}
+        loading={saving}
       />
     </div>
   );

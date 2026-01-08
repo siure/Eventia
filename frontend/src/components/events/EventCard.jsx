@@ -1,43 +1,38 @@
 import { Link } from "react-router-dom";
+import "../../styles/components/EventCard.css";
 
 export default function EventCard({ event }) {
   return (
     <div className="card event-card">
       <div className="event-card-content">
-        <h3 style={{ marginBottom: "0.4rem" }}>{event.title}</h3>
+        <h3 className="event-card-title">{event.title}</h3>
 
-        <p style={{ marginBottom: "0.6rem", fontSize: "0.9rem" }}>
+        <p className="event-card-description">
           {event.description}
         </p>
 
-        <p style={{ fontSize: "0.9rem" }}>
+        <p className="event-card-meta">
           <span className="card-label">Date:</span> {event.date}
         </p>
 
-        <p style={{ fontSize: "0.9rem" }}>
+        <p className="event-card-meta">
           <span className="card-label-location">Location:</span>{" "}
           {event.location}
         </p>
 
-        <p style={{ fontSize: "0.9rem" }}>
-          <span className="card-label-status">
-            Status:{" "}
-            <span
-              className={
-                event.status === "published"
-                  ? "status-published"
-                  : "status-draft"
-              }
+        <div className="event-card-actions">
+          {event.id ? (
+            <Link 
+              to={`/events/${event.id}`} 
+              className="btn btn-primary"
             >
-              {event.status}
+              View details
+            </Link>
+          ) : (
+            <span className="btn btn-primary event-card-disabled-btn">
+              View details (ID missing)
             </span>
-          </span>
-        </p>
-
-        <div style={{ marginTop: "0.75rem" }}>
-          <Link to={`/events/${event.id}`} className="btn btn-primary">
-            View details
-          </Link>
+          )}
         </div>
       </div>
     </div>

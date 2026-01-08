@@ -22,6 +22,7 @@ if (!uri) {
 
 app.use(cors({
   origin: 'http://localhost:3333',
+  credentials: true
 }));
 app.use(express.json());
 app.use('/api', registrationRoutes);

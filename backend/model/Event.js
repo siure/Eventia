@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import ticketTypeSchema from "./TicketType.js";
+import { toJSONPlugin } from "./plugins/toJSON.js";
 
-const eventSchema = mongoose.Schema(
+const eventSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -21,6 +22,11 @@ const eventSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    organizer: {
+      type: String,
+      required: true,
+      trim: true,
     },
     status: {
       type: String,
@@ -43,17 +49,15 @@ const eventSchema = mongoose.Schema(
   },
 );
 
-eventSchema.pre("save", function () {
-  const currentDate = new Date();
-  currentDate.setMinutes(currentDate.getMinutes() + 1);
-  if (currentDate >= this.date) {
-    const error = new Error(
-      "Event date must be in the future (at least 1 minute from now).",
-    );
-    next(error);
-  }
+eventSchema.plugin(toJSONPlugin);
 
-  next();
+eventSchema.pre("save", function () {
+  const oneMinuteFromNow = new Date();
+  oneMinuteFromNow.setMinutes(oneMinuteFromNow.getMinutes() + 1);
+
+  if (this.date <= oneMinuteFromNow) {
+    throw new Error("Event date must be in the future (at least 1 minute from now).");
+  }
 });
 
 eventSchema.methods.isPast = function () {

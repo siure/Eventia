@@ -1,0 +1,29 @@
+/* RegistrationConfirmation Page Styles */
+
+.registration-confirmation-back-btn {
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.registration-confirmation-details-card {
+  margin-top: 1.5rem;
+}
+
+.registration-confirmation-details-title {
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.registration-confirmation-details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.registration-confirmation-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+

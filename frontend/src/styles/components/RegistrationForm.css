@@ -1,0 +1,13 @@
+/* RegistrationForm Component Styles */
+
+.registration-form-error {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+}
+
+.registration-form-quantity-hint {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--text-muted);
+}
+

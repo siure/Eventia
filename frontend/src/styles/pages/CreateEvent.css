@@ -1,0 +1,13 @@
+/* CreateEvent Page Styles */
+
+.create-event-error-card {
+  margin-bottom: 1.5rem;
+  border-color: var(--accent);
+  background-color: rgba(236, 72, 153, 0.1);
+}
+
+.create-event-form-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+

@@ -1,0 +1,24 @@
+/* EventCard Component Styles */
+
+.event-card-title {
+  margin-bottom: 0.4rem;
+}
+
+.event-card-description {
+  margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.event-card-meta {
+  font-size: 0.9rem;
+}
+
+.event-card-actions {
+  margin-top: 0.75rem;
+}
+
+.event-card-disabled-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

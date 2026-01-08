@@ -1,67 +1,83 @@
 import { useLocation, Link } from "react-router-dom";
+import "../../styles/pages/RegistrationConfirmation.css";
 
 export default function RegistrationConfirmation() {
   const location = useLocation();
   const data = location.state;
 
-  // Cas où on arrive ici sans données
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    } catch (error) {
+      return dateString;
+    }
+  };
+
+  
   if (!data) {
     return (
-      <div>
+      <div className="page-section">
         <h2 className="page-title">Registration Confirmation</h2>
-        <p>No registration data found.</p>
-        <Link to="/events" className="btn btn-primary">
-          Back to events
-        </Link>
+        <div className="card">
+          <p>No registration data found.</p>
+          <Link to="/events" className="btn btn-primary registration-confirmation-back-btn">
+            Back to Events
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <h2 className="page-title">Registration Successful</h2>
+    <div className="page-section">
+      <h2 className="page-title">Registration Successful!</h2>
       <p className="page-subtitle">
-        Your registration has been recorded (fake for now).
+        Your registration has been confirmed.
       </p>
 
-      {/* Bloc d’info */}
-      <div className="success-card">
-        <h3 className="success-title">Registration Details</h3>
+      {/* Info block */}
+      <div className="card registration-confirmation-details-card">
+        <h3 className="registration-confirmation-details-title">
+          Registration Details
+        </h3>
 
-        <div className="success-info">
+        <div className="registration-confirmation-details-grid">
           <p>
-            <span className="card-label">Event:</span> {data.eventTitle}
+            <span className="card-label">Event:</span> {data.eventTitle || "N/A"}
           </p>
           <p>
-            <span className="card-label">Date:</span> {data.eventDate}
+            <span className="card-label">Date:</span> {formatDate(data.eventDate)}
           </p>
           <p>
             <span className="card-label-location">Location:</span>{" "}
-            {data.eventLocation}
+            {data.eventLocation || "N/A"}
           </p>
           <p>
             <span className="card-label">Ticket type:</span>{" "}
-            {data.ticketTypeName}
+            {data.ticketTypeName || "N/A"}
           </p>
           <p>
             <span className="card-label-location">Quantity:</span>{" "}
-            {data.quantity}
+            {data.quantity || 1}
           </p>
-          <p>
-            <span className="card-label-status">Registration ID:</span>{" "}
-            {data.registrationId}
-          </p>
+          {data.registrationId && (
+            <p>
+              <span className="card-label-status">Registration ID:</span>{" "}
+              {data.registrationId}
+            </p>
+          )}
         </div>
       </div>
 
-      {/* Boutons */}
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          marginTop: "1.5rem",
-        }}
-      >
+      {/* Buttons */}
+      <div className="registration-confirmation-actions">
         <Link to="/events" className="btn btn-primary">
           Back to Events
         </Link>

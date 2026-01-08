@@ -1,0 +1,40 @@
+/* Login Page Styles */
+
+.login-password-wrapper {
+  position: relative;
+}
+
+.login-password-input {
+  padding-right: 2.5rem;
+}
+
+.login-password-toggle {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.login-password-toggle:hover {
+  color: var(--primary-soft);
+}
+
+.login-submit-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.login-footer {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+

@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../components/layout/MainLayout";
+import ProtectedRoute from "../components/ProtectedRoute.jsx";
 
 // Auth pages (Person 1 later)
 import Login from "../pages/auth/Login.jsx";
@@ -12,12 +13,14 @@ import CreateEvent from "../pages/events/CreateEvent.jsx";
 import EditEvent from "../pages/events/EditEvent.jsx";
 
 // Dashboard pages ME
-import OrganizerDashboard from "../pages/dashboard/OrganizerDashboard.jsx";
-import ParticipantDashboard from "../pages/dashboard/ParticipantDashboard.jsx";
+import Dashboard from "../pages/dashboard/Dashboard.jsx";
 
 // Registrations pages ME
 import MyRegistrations from "../pages/registrations/MyRegistrations.jsx";
 import RegistrationConfirmation from "../pages/registrations/RegistrationConfirmation.jsx";
+
+// 404 page
+import NotFound from "../pages/NotFound.jsx";
 
 function AppRoutes() {
   return (
@@ -30,32 +33,30 @@ function AppRoutes() {
         {/* Events */}
         <Route path="events" element={<EventList />} />
 
+        {/* Specific routes BEFORE dynamic routes */}
+        <Route path="events/create" element={<CreateEvent />} />
+        
         {/* Version normale -> formulaire visible */}
         <Route 
           path="events/:eventId" 
           element={<EventDetails hideRegistrationForm={false} />} 
         />
 
-        {/* Version dashboard participant -> formulaire caché */}
-        <Route 
-          path="dashboard/participant/event/:eventId" 
-          element={<EventDetails hideRegistrationForm={true} />} 
-        />
-
-        <Route path="events/create" element={<CreateEvent />} />
         <Route path="events/:eventId/edit" element={<EditEvent />} />
 
-        {/* Dashboards */}
-        <Route path="dashboard/organizer" element={<OrganizerDashboard />} />
-        <Route path="dashboard/participant" element={<ParticipantDashboard />} />
+        {/* Dashboard */}
+        <Route path="dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 
         {/* Registrations */}
-        <Route path="my-registrations" element={<MyRegistrations />} />
+        <Route path="my-registrations" element={<ProtectedRoute><MyRegistrations /></ProtectedRoute>} />
         <Route
-          path="registrations/confirmation/:registrationId"
+          path="registrations/confirmation"
           element={<RegistrationConfirmation />}
         />
       </Route>
+
+      {/* 404 */}
+      <Route path="*" element={<NotFound />} />
 
       {/* Auth routes */}
       <Route path="/login" element={<Login />} />
