@@ -18,10 +18,10 @@ JWT_SECRET=your_jwt_secret_key
 Create a `.env` file in the `frontend/` directory with the following variable:
 
 ```env
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=http://localhost:5000
 ```
 
-Replace `http://localhost:3000` with your backend API URL.
+Replace `http://localhost:5000` with your backend API URL.
 
 ## Getting Started
 
