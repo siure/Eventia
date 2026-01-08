@@ -19,25 +19,19 @@ export default function EventCard({ event }) {
           {event.location}
         </p>
 
-        <p style={{ fontSize: "0.9rem" }}>
-          <span className="card-label-status">
-            Status:{" "}
-            <span
-              className={
-                event.status === "published"
-                  ? "status-published"
-                  : "status-draft"
-              }
-            >
-              {event.status}
-            </span>
-          </span>
-        </p>
-
         <div style={{ marginTop: "0.75rem" }}>
-          <Link to={`/events/${event.id}`} className="btn btn-primary">
-            View details
-          </Link>
+          {event.id ? (
+            <Link 
+              to={`/events/${event.id}`} 
+              className="btn btn-primary"
+            >
+              View details
+            </Link>
+          ) : (
+            <span className="btn btn-primary" style={{ opacity: 0.5, cursor: "not-allowed" }}>
+              View details (ID missing)
+            </span>
+          )}
         </div>
       </div>
     </div>

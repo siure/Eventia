@@ -22,100 +22,118 @@ export default function TicketTypeFields({ ticketTypes, setTicketTypes }) {
   };
 
   return (
-    <div style={{ marginTop: "1rem" }}>
-      <h3>Ticket types</h3>
-
+    <div>
       {ticketTypes.length === 0 && (
-        <p style={{ fontSize: "0.9rem" }}>No ticket types yet.</p>
+        <p style={{ 
+          fontSize: "0.9rem", 
+          color: "var(--text-muted)",
+          marginBottom: "1rem",
+          fontStyle: "italic"
+        }}>
+          No ticket types added yet. Click the button below to add one.
+        </p>
       )}
 
       {ticketTypes.map((ticket, index) => (
         <div
           key={ticket.id || index}
+          className="card"
           style={{
-            border: "1px solid #333",
-            borderRadius: "6px",
-            padding: "0.75rem",
-            marginBottom: "0.5rem",
-            backgroundColor: "#020617",
+            marginBottom: "1rem",
+            borderColor: "rgba(236, 72, 153, 0.3)",
+            backgroundColor: "rgba(15, 23, 42, 0.6)",
           }}
         >
-          <div style={{ marginBottom: "0.4rem" }}>
-            <label>
-              Name{" "}
-              <input
-                type="text"
-                value={ticket.name}
-                onChange={(e) =>
-                  handleChange(index, "name", e.target.value)
-                }
-                style={{ marginLeft: "0.5rem" }}
-              />
-            </label>
+          <div style={{ 
+            display: "flex", 
+            justifyContent: "space-between", 
+            alignItems: "center",
+            marginBottom: "1rem"
+          }}>
+            <h4 style={{ 
+              margin: 0, 
+              fontSize: "1rem",
+              color: "var(--primary-soft)"
+            }}>
+              Ticket Type #{index + 1}
+            </h4>
+            <button
+              type="button"
+              onClick={() => handleRemove(index)}
+              className="btn btn-danger"
+              style={{ 
+                padding: "0.4rem 0.8rem",
+                fontSize: "0.85rem"
+              }}
+            >
+              Remove
+            </button>
           </div>
 
-          <div style={{ marginBottom: "0.4rem" }}>
-            <label>
-              Price (€){" "}
+          <div className="field">
+            <label className="field-label">Ticket Name</label>
+            <input
+              type="text"
+              className="input"
+              value={ticket.name}
+              onChange={(e) =>
+                handleChange(index, "name", e.target.value)
+              }
+              placeholder="e.g., Standard, VIP, Early Bird"
+            />
+          </div>
+
+          <div style={{ 
+            display: "grid", 
+            gridTemplateColumns: "1fr 1fr", 
+            gap: "1rem",
+            marginTop: "0.75rem"
+          }}
+          className="event-form-grid"
+          >
+            <div className="field">
+              <label className="field-label">Price (€)</label>
               <input
                 type="number"
+                className="input"
                 min="0"
+                step="0.01"
                 value={ticket.price}
                 onChange={(e) =>
                   handleChange(index, "price", e.target.value)
                 }
-                style={{ marginLeft: "0.5rem", width: "80px" }}
+                placeholder="0.00"
               />
-            </label>
-          </div>
+            </div>
 
-          <div style={{ marginBottom: "0.4rem" }}>
-            <label>
-              Capacity{" "}
+            <div className="field">
+              <label className="field-label">Capacity</label>
               <input
                 type="number"
-                min="0"
+                className="input"
+                min="1"
                 value={ticket.capacity}
                 onChange={(e) =>
                   handleChange(index, "capacity", e.target.value)
                 }
-                style={{ marginLeft: "0.5rem", width: "80px" }}
+                placeholder="100"
               />
-            </label>
+            </div>
           </div>
-
-          <button
-            type="button"
-            onClick={() => handleRemove(index)}
-            style={{
-              background: "none",
-              border: "none",
-              color: "#ef4444",
-              cursor: "pointer",
-              fontSize: "0.85rem",
-              padding: 0,
-            }}
-          >
-            Remove ticket type
-          </button>
         </div>
       ))}
 
       <button
         type="button"
         onClick={handleAdd}
+        className="btn"
         style={{
           marginTop: "0.5rem",
-          padding: "0.4rem 0.8rem",
-          borderRadius: "4px",
-          border: "1px solid #3b82f6",
-          color: "#3b82f6",
-          background: "transparent",
-          cursor: "pointer",
-          fontSize: "0.9rem",
+          borderColor: "var(--primary)",
+          color: "var(--primary)",
         }}
       >
-        + Add ticket type
+        + Add Ticket Type
       </button>
     </div>
   );

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import { toJSONPlugin } from './plugins/toJSON.js';
 
 const saltRounds = 10;
 const userSchema = new mongoose.Schema(
@@ -26,6 +27,8 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+userSchema.plugin(toJSONPlugin);
 
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;

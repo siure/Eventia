@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { toJSONPlugin } from './plugins/toJSON.js';
 
 const ticketTypeSchema = mongoose.Schema(
   {
@@ -27,6 +28,8 @@ const ticketTypeSchema = mongoose.Schema(
     timestamps: true,
   },
 );
+
+ticketTypeSchema.plugin(toJSONPlugin);
 
 ticketTypeSchema.pre("validate", function () {
   if (this.capacity <= 0) {
