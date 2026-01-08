@@ -27,7 +27,7 @@ Replace `http://localhost:3000` with your backend API URL.
 
 1. Install backend dependencies:
    ```bash
-   cd backend
+   cd backend 
    npm install
    ```
 
